@@ -1,4 +1,10 @@
-# EditalShield 🛡️
+![EditalShield Banner](docs/images/banner.png)
+
+<p align="center">
+  <img src="docs/images/logo.png" alt="EditalShield Logo" width="200"/>
+</p>
+
+<h1 align="center">EditalShield 🛡️</h1>
 
 [![Python Version](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -41,6 +47,18 @@ EditalShield automatiza:
 
 ---
 
+## 🔄 Como Funciona
+
+![Workflow EditalShield](docs/images/workflow.png)
+
+---
+
+---
+
+## 🏗️ Arquitetura
+
+![Arquitetura EditalShield](docs/images/architecture.png)
+
 ## 📦 Módulos
 
 ### 1️⃣ **Edital Selector**
@@ -66,6 +84,8 @@ editalshield generate-nda --project "Seu Projeto" --founders "Nome1,Nome2" --suc
 
 ### 4️⃣ **Memorial Protector** ⭐
 Protege trade secrets automaticamente usando NLP + padrões.
+
+![Memorial Protector](docs/images/memorial_protector.png)
 
 ```bash
 editalshield protect-memorial --input memorial.md --sensitivity high --output memorial_safe.md
