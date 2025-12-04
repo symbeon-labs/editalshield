@@ -1,0 +1,47 @@
+guardrive:
+  enabled: true
+  base_path: "."
+  docs_path: "docs"
+  dev_path: "src"
+  path_mappings: []
+  doc_handlers:
+    default:
+      file_extensions: ["md", "rst", "txt"]
+      preserve_metadata: true
+      convert_formats: false
+      validate_links: false
+      check_references: false
+  version_control:
+    enabled: false
+    provider: "git"
+    backup_enabled: false
+  conflict_resolution: "manual"
+  sync_schedule: "*/15 * * * *"
+  validation_level: "strict"
+
+templates_dir: "docs/templates"
+output_dir: "docs/_site"
+backup_dir: "backups"
+temp_dir: "temp"
+log_level: "INFO"
+
+esg:
+  metrics_enabled: false
+  custom_templates: {}
+  output_format: "markdown"
+  validation_level: "strict"
+
+sync:
+  watch_paths: []
+  ignore_patterns: [".git", "__pycache__", "*.pyc"]
+  auto_sync: false
+  sync_interval: 300
+  real_time_sync: false
+  conflict_handling: "ask"
+  retry_attempts: 3
+  retry_delay: 60
+  checksum_verification: true
+  preserve_timestamps: true
+  sync_metadata: true
+  sync_permissions: true
+  max_file_size: 104857600

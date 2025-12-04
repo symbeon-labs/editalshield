@@ -1,0 +1,19 @@
+{
+  "guardrive": {
+    "enabled": true,
+    "base_path": ".",
+    "docs_path": "docs",
+    "dev_path": "src",
+    "path_mappings": [
+      {
+        "source_path": "docs",
+        "target_path": "docs/_site",
+        "doc_type": "technical",
+        "bidirectional": false
+      }
+    ]
+  },
+  "templates_dir": "docs/templates",
+  "output_dir": "docs/_site",
+  "log_level": "INFO"
+}

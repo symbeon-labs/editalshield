@@ -1,0 +1,158 @@
+{
+  "gaps_identified": {
+    "Gap 1: Pré-Decisão - Falta visibilidade de valor": {
+      "problema": "Startup não sabe qual edital escolher, quanto custa, quanto tempo leva",
+      "impacto": "Desperdício de tempo em editais inadequados",
+      "modulo_responsavel": "Módulo 1: Edital Selector",
+      "status_implementacao": "Planejado (não implementado ainda)",
+      "funcionalidades": [
+        "Comparador de editais (Centelha vs PIPE vs Finep)",
+        "Custo estimado (consultoria + tempo)",
+        "Taxa de aprovação por setor",
+        "ROI calculado"
+      ]
+    },
+    "Gap 2: Pré-Estruturação - Falta benchmark de preço": {
+      "problema": "Escritórios cobram R$ 5-50k pelo mesmo serviço sem transparência",
+      "impacto": "Startups pagam honorários abusivos",
+      "modulo_responsavel": "Módulo 2: Gap Analyzer + Módulo 5: Cost Calculator",
+      "status_implementacao": "Parcialmente planejado",
+      "funcionalidades": [
+        "Tabela de preço de mercado (25º, 50º, 75º percentil)",
+        "Calculadora de fluxo de caixa",
+        "Template de rubricas orçamentárias",
+        "Simulador de impacto financeiro"
+      ]
+    },
+    "Gap 3: Contratação - Falta proteção contratual": {
+      "problema": "Startup expõe tudo (narrativa, roadmap, contatos) SEM NDA",
+      "impacto": "Risco de apropriação de PI por consultores",
+      "modulo_responsavel": "Módulo 3: NDA Generator",
+      "status_implementacao": "Planejado",
+      "funcionalidades": [
+        "NDA template defensivo balanceado",
+        "Guia de negociação (cenários + respostas)",
+        "Escala de referência (10% vs 20% vs 30%)",
+        "Checklist pré-assinatura"
+      ]
+    },
+    "Gap 4: Memoriais - Falta proteção de PI": {
+      "problema": "Quanto detalhe técnico? Startup expõe trade secrets desnecessariamente",
+      "impacto": "Exposição de algoritmos, parâmetros, arquitetura proprietária",
+      "modulo_responsavel": "Módulo 4: Memorial Protector",
+      "status_implementacao": "✅ IMPLEMENTADO (core completo)",
+      "funcionalidades": [
+        "Template de memorial que protege PI",
+        "Checklist de trade secrets",
+        "Guia de nível apropriado por edital",
+        "Detector automático de exposição (NLP)",
+        "Score de risco 0-100",
+        "Versão protegida gerada automaticamente"
+      ]
+    },
+    "Gap 5: Submissão - Falta checklist": {
+      "problema": "Startup submete sem ter certeza se está tudo ok",
+      "impacto": "Erros de última hora, documentação incompleta",
+      "modulo_responsavel": "Módulo 2: Gap Analyzer (extensão)",
+      "status_implementacao": "Planejado",
+      "funcionalidades": [
+        "Checklist pré-submissão automático",
+        "Validação de proteção",
+        "Comunicação clara se falta algo"
+      ]
+    },
+    "Gap 6: Pós-Aprovação - Falta automação de cálculo": {
+      "problema": "Aprovei 20%, mas liberou 60%, quanto pago? Ninguém sabe",
+      "impacto": "Disputas com consultores, falta de transparência",
+      "modulo_responsavel": "Módulo 5: Cost Calculator",
+      "status_implementacao": "Planejado",
+      "funcionalidades": [
+        "Calculadora de success fee por parcela",
+        "Termo de liquidação automático",
+        "Dashboard 'quanto você deve vs recebeu'"
+      ]
+    },
+    "Gap 7: Execução - Falta continuidade": {
+      "problema": "Edital glosa rubrica jurídica, consultor desaparece",
+      "impacto": "Startup fica desamparada após aprovação",
+      "modulo_responsavel": "Módulo 6: Scenario Planner",
+      "status_implementacao": "Planejado",
+      "funcionalidades": [
+        "Template de 2º contrato (patentes/marcas)",
+        "Cenário A/B/C pré-definido",
+        "SOS: 'O edital glosou, o que faço?'"
+      ]
+    }
+  },
+  "cobertura": {
+    "total_gaps": 7,
+    "implementados": 1,
+    "planejados": 5,
+    "cobertura_atual": "14.3%",
+    "cobertura_futura": "85.7%"
+  },
+  "modulos": {
+    "Módulo 1: Edital Selector": {
+      "status": "Planejado (não implementado ainda)",
+      "funcionalidades": [
+        "Comparador de editais (Centelha vs PIPE vs Finep)",
+        "Custo estimado (consultoria + tempo)",
+        "Taxa de aprovação por setor",
+        "ROI calculado"
+      ]
+    },
+    "Módulo 2: Gap Analyzer + Módulo 5: Cost Calculator": {
+      "status": "Parcialmente planejado",
+      "funcionalidades": [
+        "Tabela de preço de mercado (25º, 50º, 75º percentil)",
+        "Calculadora de fluxo de caixa",
+        "Template de rubricas orçamentárias",
+        "Simulador de impacto financeiro"
+      ]
+    },
+    "Módulo 3: NDA Generator": {
+      "status": "Planejado",
+      "funcionalidades": [
+        "NDA template defensivo balanceado",
+        "Guia de negociação (cenários + respostas)",
+        "Escala de referência (10% vs 20% vs 30%)",
+        "Checklist pré-assinatura"
+      ]
+    },
+    "Módulo 4: Memorial Protector": {
+      "status": "✅ IMPLEMENTADO (core completo)",
+      "funcionalidades": [
+        "Template de memorial que protege PI",
+        "Checklist de trade secrets",
+        "Guia de nível apropriado por edital",
+        "Detector automático de exposição (NLP)",
+        "Score de risco 0-100",
+        "Versão protegida gerada automaticamente"
+      ]
+    },
+    "Módulo 2: Gap Analyzer (extensão)": {
+      "status": "Planejado",
+      "funcionalidades": [
+        "Checklist pré-submissão automático",
+        "Validação de proteção",
+        "Comunicação clara se falta algo"
+      ]
+    },
+    "Módulo 5: Cost Calculator": {
+      "status": "Planejado",
+      "funcionalidades": [
+        "Calculadora de success fee por parcela",
+        "Termo de liquidação automático",
+        "Dashboard 'quanto você deve vs recebeu'"
+      ]
+    },
+    "Módulo 6: Scenario Planner": {
+      "status": "Planejado",
+      "funcionalidades": [
+        "Template de 2º contrato (patentes/marcas)",
+        "Cenário A/B/C pré-definido",
+        "SOS: 'O edital glosou, o que faço?'"
+      ]
+    }
+  }
+}
