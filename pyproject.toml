@@ -48,10 +48,10 @@ dev = [
 editalshield = "editalshield.cli:cli"
 
 [project.urls]
-Homepage = "https://github.com/symbeon/editalshield"
-Documentation = "https://github.com/symbeon/editalshield/docs"
-Repository = "https://github.com/symbeon/editalshield"
-Issues = "https://github.com/symbeon/editalshield/issues"
+Homepage = "https://github.com/SH1W4/editalshield"
+Documentation = "https://github.com/SH1W4/editalshield/tree/main/docs"
+Repository = "https://github.com/SH1W4/editalshield"
+Issues = "https://github.com/SH1W4/editalshield/issues"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

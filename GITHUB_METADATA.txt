@@ -1,0 +1,26 @@
+# GitHub Repository Metadata
+
+Use these details to update your repository's "About" section on GitHub.
+
+## Description
+Framework open-source para proteção de PI e automação de submissões a editais de inovação brasileiros (Centelha, PIPE, Finep).
+
+## Website
+https://github.com/SH1W4/editalshield
+
+## Topics (Tags)
+edital
+inovacao
+propriedade-intelectual
+startups
+brasil
+framework
+python
+cli
+finep
+fapesp
+centelha
+due-diligence
+legaltech
+govtech
+open-source
