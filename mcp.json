@@ -1,0 +1,68 @@
+{
+    "name": "editalshield",
+    "version": "0.2.0",
+    "description": "MCP server for EditalShield - IP protection in innovation grants",
+    "author": "NEO_SH1W4",
+    "repository": "https://github.com/SH1W4/editalshield",
+    "license": "MIT",
+    "server": {
+        "command": "python",
+        "args": [
+            "mcp_server.py"
+        ],
+        "cwd": "."
+    },
+    "tools": [
+        {
+            "name": "analyze_memorial",
+            "description": "Analyze a technical memorial for IP exposure risk"
+        },
+        {
+            "name": "protect_memorial",
+            "description": "Protect a memorial by replacing sensitive IP content"
+        },
+        {
+            "name": "analyze_paragraph",
+            "description": "Analyze a single paragraph for IP exposure"
+        },
+        {
+            "name": "detect_sensitive_patterns",
+            "description": "Detect sensitive patterns in text"
+        },
+        {
+            "name": "calculate_entropy",
+            "description": "Calculate Shannon entropy of text"
+        },
+        {
+            "name": "generate_report",
+            "description": "Generate detailed analysis report"
+        },
+        {
+            "name": "get_protection_suggestions",
+            "description": "Get protection suggestions by category"
+        },
+        {
+            "name": "compare_risk",
+            "description": "Compare risk between original and protected versions"
+        }
+    ],
+    "resources": [
+        {
+            "uri": "editalshield://info",
+            "description": "EditalShield capabilities and info"
+        },
+        {
+            "uri": "editalshield://patterns",
+            "description": "List of sensitive patterns detected"
+        },
+        {
+            "uri": "editalshield://suggestions",
+            "description": "Protection suggestions by category"
+        }
+    ],
+    "requirements": [
+        "mcp>=1.0.0",
+        "numpy>=1.24",
+        "scikit-learn>=1.3"
+    ]
+}
