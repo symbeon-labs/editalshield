@@ -1,0 +1,208 @@
+{
+  "$schema": "https://raw.githubusercontent.com/microsoft/vscode/main/extensions/configuration-editing/schemas/devContainer.schema.json",
+  "name": "DocSync Architecture",
+  "version": "0.2.0",
+  "description": "Enterprise Architecture Pattern for DocSync - AI-Powered Documentation Agent",
+  
+  "architecture": {
+    "layers": [
+      {
+        "name": "Presentation Layer",
+        "components": [
+          {
+            "name": "CLI",
+            "path": "src/docsync/cli.py",
+            "description": "Command-line interface using Click and Rich",
+            "responsibilities": ["User interaction", "Command routing", "Output formatting"],
+            "commands": ["improve", "serve", "sync"]
+          }
+        ]
+      },
+      {
+        "name": "Application Layer",
+        "components": [
+          {
+            "name": "MCP Server",
+            "path": "src/docsync/mcp/server.py",
+            "description": "Model Context Protocol server for external agents",
+            "responsibilities": ["Agent communication", "Tool registration", "Async I/O"],
+            "tools": ["list_docs", "read_doc", "improve_doc", "get_stats"]
+          }
+        ]
+      },
+      {
+        "name": "Domain Layer",
+        "components": [
+          {
+            "name": "LLM Providers",
+            "path": "src/docsync/integrations/",
+            "description": "AI provider implementations",
+            "providers": [
+              {
+                "name": "OpenAIProvider",
+                "file": "openai_provider.py",
+                "models": ["gpt-4o-mini", "gpt-4o"]
+              },
+              {
+                "name": "ClaudeProvider",
+                "file": "claude_provider.py",
+                "models": ["claude-3-5-haiku-20241022", "claude-3-5-sonnet-20241022"]
+              },
+              {
+                "name": "GeminiProvider",
+                "file": "gemini_provider.py",
+                "models": ["gemini-2.0-flash-exp"]
+              }
+            ]
+          },
+          {
+            "name": "Core Engine",
+            "path": "src/docsync/core/",
+            "description": "Core business logic",
+            "components": [
+              {
+                "name": "LLMProvider Interface",
+                "file": "llm.py",
+                "type": "Abstract Base Class",
+                "methods": ["generate(prompt, system_prompt)"]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Infrastructure Layer",
+        "components": [
+          {
+            "name": "AI Processor",
+            "path": "src/ai_processor.py",
+            "description": "Document analysis and quality metrics",
+            "features": ["Quality scoring", "Metadata extraction", "Statistics"]
+          }
+        ]
+      }
+    ],
+    
+    "patterns": {
+      "design_patterns": [
+        {
+          "name": "Strategy Pattern",
+          "location": "src/docsync/core/llm.py",
+          "description": "LLMProvider interface allows swapping AI providers at runtime"
+        },
+        {
+          "name": "Factory Pattern",
+          "location": "src/docsync/cli.py (improve command)",
+          "description": "Provider instantiation based on --provider flag"
+        },
+        {
+          "name": "Server Pattern",
+          "location": "src/docsync/mcp/server.py",
+          "description": "MCP server implements async request/response pattern"
+        }
+      ],
+      
+      "architectural_patterns": [
+        {
+          "name": "Layered Architecture",
+          "description": "Separation of concerns: CLI -> Application -> Domain -> Infrastructure"
+        },
+        {
+          "name": "Plugin Architecture",
+          "description": "Extensible provider system via LLMProvider interface"
+        }
+      ]
+    },
+    
+    "dependencies": {
+      "core": [
+        "click>=8.0.0",
+        "rich>=13.0.0",
+        "pydantic>=2.0.0",
+        "pyyaml>=6.0"
+      ],
+      "ai": [
+        "openai>=1.0.0",
+        "anthropic>=0.18.0",
+        "google-generativeai>=0.3.0"
+      ],
+      "mcp": [
+        "mcp>=0.1.0"
+      ],
+      "dev": [
+        "pytest>=7.0.0",
+        "black>=23.0.0",
+        "mypy>=1.0.0"
+      ]
+    },
+    
+    "data_flow": {
+      "improve_command": [
+        "User -> CLI (improve command)",
+        "CLI -> Provider Factory (select provider)",
+        "Provider -> External API (OpenAI/Claude/Gemini)",
+        "API Response -> Provider (LLMResponse)",
+        "Provider -> CLI -> User (formatted output)"
+      ],
+      "mcp_server": [
+        "External Agent -> MCP Server (tool call)",
+        "MCP Server -> Tool Handler (route)",
+        "Tool Handler -> Provider (if improve_doc)",
+        "Provider -> External API",
+        "API Response -> Tool Handler -> MCP Server -> Agent"
+      ]
+    },
+    
+    "extension_points": {
+      "new_provider": {
+        "steps": [
+          "1. Create new file in src/docsync/integrations/",
+          "2. Inherit from LLMProvider",
+          "3. Implement generate() method",
+          "4. Add to CLI provider choices",
+          "5. Add to MCP server provider routing"
+        ],
+        "example": "src/docsync/integrations/ollama_provider.py (future)"
+      },
+      "new_mcp_tool": {
+        "steps": [
+          "1. Add tool definition in list_tools()",
+          "2. Add handler in call_tool()",
+          "3. Update tests"
+        ]
+      }
+    }
+  },
+  
+  "development": {
+    "setup": "pip install -e \".[dev]\"",
+    "test": "pytest tests/ -v",
+    "format": "black . && isort .",
+    "lint": "flake8 src/ && mypy src/",
+    "run_improve": "docsync improve <file> [--provider <provider>]",
+    "run_mcp": "docsync serve"
+  },
+  
+  "ide_integration": {
+    "vscode": {
+      "recommended_extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-python.black-formatter",
+        "charliermarsh.ruff"
+      ],
+      "settings": {
+        "python.testing.pytestEnabled": true,
+        "python.linting.enabled": true,
+        "python.formatting.provider": "black"
+      }
+    },
+    "pycharm": {
+      "settings": {
+        "Project Structure": "Mark 'src' as Sources Root",
+        "Python Interpreter": "Use .venv/Scripts/python.exe",
+        "Testing": "Use pytest as default runner"
+      }
+    }
+  }
+}
