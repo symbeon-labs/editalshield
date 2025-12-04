@@ -1,0 +1,684 @@
+[
+  {
+    "name": "PIPE FAPESP Fase 1",
+    "agency": "FAPESP",
+    "min_value": 100000,
+    "max_value": 200000,
+    "execution_months": 12,
+    "approval_rate_historical": 0.25,
+    "eligible_sectors": [
+      "software",
+      "ai-ml",
+      "biotech",
+      "hardware"
+    ],
+    "eligible_stages": [
+      "seed",
+      "serie-a"
+    ],
+    "technical_detail_level": "high",
+    "evaluation_type": "banca_fechada",
+    "source_url": "https://fapesp.br/pipe",
+    "full_text": "PIPE (Research Innovation in Small Enterprises) supports startups in technology innovation. Phase 1: technical and commercial concept development.",
+    "criteria": {
+      "innovation": 35,
+      "viability": 30,
+      "impact": 20,
+      "team": 10,
+      "market": 5
+    },
+    "scraped_at": "2025-12-04T19:34:32.672726"
+  },
+  {
+    "name": "Centelha BA III",
+    "agency": "Programa Centelha / BA",
+    "min_value": 80000,
+    "max_value": 120000,
+    "execution_months": 12,
+    "approval_rate_historical": 0.38,
+    "eligible_sectors": [
+      "software",
+      "hardware",
+      "saas",
+      "ai-ml",
+      "iot"
+    ],
+    "eligible_stages": [
+      "pre-seed",
+      "seed"
+    ],
+    "technical_detail_level": "medium",
+    "evaluation_type": "comite_publico",
+    "source_url": "https://programacentelha.com.br",
+    "criteria": {
+      "innovation": 30,
+      "viability": 25,
+      "impact": 20,
+      "team": 15,
+      "market": 10
+    },
+    "scraped_at": "2025-12-04T19:34:32.673412"
+  },
+  {
+    "name": "Centelha SP III",
+    "agency": "Programa Centelha / SP",
+    "min_value": 80000,
+    "max_value": 120000,
+    "execution_months": 12,
+    "approval_rate_historical": 0.38,
+    "eligible_sectors": [
+      "software",
+      "hardware",
+      "saas",
+      "ai-ml",
+      "iot"
+    ],
+    "eligible_stages": [
+      "pre-seed",
+      "seed"
+    ],
+    "technical_detail_level": "medium",
+    "evaluation_type": "comite_publico",
+    "source_url": "https://programacentelha.com.br",
+    "criteria": {
+      "innovation": 30,
+      "viability": 25,
+      "impact": 20,
+      "team": 15,
+      "market": 10
+    },
+    "scraped_at": "2025-12-04T19:34:32.673412"
+  },
+  {
+    "name": "Centelha MG III",
+    "agency": "Programa Centelha / MG",
+    "min_value": 80000,
+    "max_value": 120000,
+    "execution_months": 12,
+    "approval_rate_historical": 0.38,
+    "eligible_sectors": [
+      "software",
+      "hardware",
+      "saas",
+      "ai-ml",
+      "iot"
+    ],
+    "eligible_stages": [
+      "pre-seed",
+      "seed"
+    ],
+    "technical_detail_level": "medium",
+    "evaluation_type": "comite_publico",
+    "source_url": "https://programacentelha.com.br",
+    "criteria": {
+      "innovation": 30,
+      "viability": 25,
+      "impact": 20,
+      "team": 15,
+      "market": 10
+    },
+    "scraped_at": "2025-12-04T19:34:32.673412"
+  },
+  {
+    "name": "Centelha RJ III",
+    "agency": "Programa Centelha / RJ",
+    "min_value": 80000,
+    "max_value": 120000,
+    "execution_months": 12,
+    "approval_rate_historical": 0.38,
+    "eligible_sectors": [
+      "software",
+      "hardware",
+      "saas",
+      "ai-ml",
+      "iot"
+    ],
+    "eligible_stages": [
+      "pre-seed",
+      "seed"
+    ],
+    "technical_detail_level": "medium",
+    "evaluation_type": "comite_publico",
+    "source_url": "https://programacentelha.com.br",
+    "criteria": {
+      "innovation": 30,
+      "viability": 25,
+      "impact": 20,
+      "team": 15,
+      "market": 10
+    },
+    "scraped_at": "2025-12-04T19:34:32.673412"
+  },
+  {
+    "name": "Centelha RS III",
+    "agency": "Programa Centelha / RS",
+    "min_value": 80000,
+    "max_value": 120000,
+    "execution_months": 12,
+    "approval_rate_historical": 0.38,
+    "eligible_sectors": [
+      "software",
+      "hardware",
+      "saas",
+      "ai-ml",
+      "iot"
+    ],
+    "eligible_stages": [
+      "pre-seed",
+      "seed"
+    ],
+    "technical_detail_level": "medium",
+    "evaluation_type": "comite_publico",
+    "source_url": "https://programacentelha.com.br",
+    "criteria": {
+      "innovation": 30,
+      "viability": 25,
+      "impact": 20,
+      "team": 15,
+      "market": 10
+    },
+    "scraped_at": "2025-12-04T19:34:32.674432"
+  },
+  {
+    "name": "Centelha SC III",
+    "agency": "Programa Centelha / SC",
+    "min_value": 80000,
+    "max_value": 120000,
+    "execution_months": 12,
+    "approval_rate_historical": 0.38,
+    "eligible_sectors": [
+      "software",
+      "hardware",
+      "saas",
+      "ai-ml",
+      "iot"
+    ],
+    "eligible_stages": [
+      "pre-seed",
+      "seed"
+    ],
+    "technical_detail_level": "medium",
+    "evaluation_type": "comite_publico",
+    "source_url": "https://programacentelha.com.br",
+    "criteria": {
+      "innovation": 30,
+      "viability": 25,
+      "impact": 20,
+      "team": 15,
+      "market": 10
+    },
+    "scraped_at": "2025-12-04T19:34:32.674432"
+  },
+  {
+    "name": "Centelha PR III",
+    "agency": "Programa Centelha / PR",
+    "min_value": 80000,
+    "max_value": 120000,
+    "execution_months": 12,
+    "approval_rate_historical": 0.38,
+    "eligible_sectors": [
+      "software",
+      "hardware",
+      "saas",
+      "ai-ml",
+      "iot"
+    ],
+    "eligible_stages": [
+      "pre-seed",
+      "seed"
+    ],
+    "technical_detail_level": "medium",
+    "evaluation_type": "comite_publico",
+    "source_url": "https://programacentelha.com.br",
+    "criteria": {
+      "innovation": 30,
+      "viability": 25,
+      "impact": 20,
+      "team": 15,
+      "market": 10
+    },
+    "scraped_at": "2025-12-04T19:34:32.674432"
+  },
+  {
+    "name": "Centelha PE III",
+    "agency": "Programa Centelha / PE",
+    "min_value": 80000,
+    "max_value": 120000,
+    "execution_months": 12,
+    "approval_rate_historical": 0.38,
+    "eligible_sectors": [
+      "software",
+      "hardware",
+      "saas",
+      "ai-ml",
+      "iot"
+    ],
+    "eligible_stages": [
+      "pre-seed",
+      "seed"
+    ],
+    "technical_detail_level": "medium",
+    "evaluation_type": "comite_publico",
+    "source_url": "https://programacentelha.com.br",
+    "criteria": {
+      "innovation": 30,
+      "viability": 25,
+      "impact": 20,
+      "team": 15,
+      "market": 10
+    },
+    "scraped_at": "2025-12-04T19:34:32.674432"
+  },
+  {
+    "name": "Centelha CE III",
+    "agency": "Programa Centelha / CE",
+    "min_value": 80000,
+    "max_value": 120000,
+    "execution_months": 12,
+    "approval_rate_historical": 0.38,
+    "eligible_sectors": [
+      "software",
+      "hardware",
+      "saas",
+      "ai-ml",
+      "iot"
+    ],
+    "eligible_stages": [
+      "pre-seed",
+      "seed"
+    ],
+    "technical_detail_level": "medium",
+    "evaluation_type": "comite_publico",
+    "source_url": "https://programacentelha.com.br",
+    "criteria": {
+      "innovation": 30,
+      "viability": 25,
+      "impact": 20,
+      "team": 15,
+      "market": 10
+    },
+    "scraped_at": "2025-12-04T19:34:32.674432"
+  },
+  {
+    "name": "Centelha GO III",
+    "agency": "Programa Centelha / GO",
+    "min_value": 80000,
+    "max_value": 120000,
+    "execution_months": 12,
+    "approval_rate_historical": 0.38,
+    "eligible_sectors": [
+      "software",
+      "hardware",
+      "saas",
+      "ai-ml",
+      "iot"
+    ],
+    "eligible_stages": [
+      "pre-seed",
+      "seed"
+    ],
+    "technical_detail_level": "medium",
+    "evaluation_type": "comite_publico",
+    "source_url": "https://programacentelha.com.br",
+    "criteria": {
+      "innovation": 30,
+      "viability": 25,
+      "impact": 20,
+      "team": 15,
+      "market": 10
+    },
+    "scraped_at": "2025-12-04T19:34:32.675546"
+  },
+  {
+    "name": "Centelha DF III",
+    "agency": "Programa Centelha / DF",
+    "min_value": 80000,
+    "max_value": 120000,
+    "execution_months": 12,
+    "approval_rate_historical": 0.38,
+    "eligible_sectors": [
+      "software",
+      "hardware",
+      "saas",
+      "ai-ml",
+      "iot"
+    ],
+    "eligible_stages": [
+      "pre-seed",
+      "seed"
+    ],
+    "technical_detail_level": "medium",
+    "evaluation_type": "comite_publico",
+    "source_url": "https://programacentelha.com.br",
+    "criteria": {
+      "innovation": 30,
+      "viability": 25,
+      "impact": 20,
+      "team": 15,
+      "market": 10
+    },
+    "scraped_at": "2025-12-04T19:34:32.675546"
+  },
+  {
+    "name": "FINEP Inovação Conecta",
+    "agency": "FINEP",
+    "min_value": 50000,
+    "max_value": 500000,
+    "execution_months": 24,
+    "approval_rate_historical": 0.35,
+    "eligible_sectors": [
+      "software",
+      "hardware",
+      "biotech",
+      "agritech",
+      "energia"
+    ],
+    "eligible_stages": [
+      "seed",
+      "serie-a",
+      "growth"
+    ],
+    "technical_detail_level": "high",
+    "evaluation_type": "comite_publico",
+    "source_url": "https://www.finep.gov.br",
+    "criteria": {
+      "innovation": 30,
+      "viability": 25,
+      "impact": 25,
+      "team": 15,
+      "market": 5
+    },
+    "scraped_at": "2025-12-04T19:34:32.676578"
+  },
+  {
+    "name": "FINEP Subvenção Econômica",
+    "agency": "FINEP",
+    "min_value": 100000,
+    "max_value": 1000000,
+    "execution_months": 36,
+    "approval_rate_historical": 0.25,
+    "eligible_sectors": [
+      "software",
+      "hardware",
+      "biotech",
+      "agritech",
+      "energia"
+    ],
+    "eligible_stages": [
+      "seed",
+      "serie-a",
+      "growth"
+    ],
+    "technical_detail_level": "high",
+    "evaluation_type": "comite_publico",
+    "source_url": "https://www.finep.gov.br",
+    "criteria": {
+      "innovation": 30,
+      "viability": 25,
+      "impact": 25,
+      "team": 15,
+      "market": 5
+    },
+    "scraped_at": "2025-12-04T19:34:32.676578"
+  },
+  {
+    "name": "FINEP Startup",
+    "agency": "FINEP",
+    "min_value": 50000,
+    "max_value": 300000,
+    "execution_months": 18,
+    "approval_rate_historical": 0.4,
+    "eligible_sectors": [
+      "software",
+      "hardware",
+      "biotech",
+      "agritech",
+      "energia"
+    ],
+    "eligible_stages": [
+      "seed",
+      "serie-a",
+      "growth"
+    ],
+    "technical_detail_level": "high",
+    "evaluation_type": "comite_publico",
+    "source_url": "https://www.finep.gov.br",
+    "criteria": {
+      "innovation": 30,
+      "viability": 25,
+      "impact": 25,
+      "team": 15,
+      "market": 5
+    },
+    "scraped_at": "2025-12-04T19:34:32.676578"
+  },
+  {
+    "name": "SEBRAE ALI 2025",
+    "agency": "SEBRAE",
+    "min_value": 5000,
+    "max_value": 20000,
+    "execution_months": 6,
+    "approval_rate_historical": 0.6,
+    "eligible_sectors": [
+      "varejo",
+      "ecommerce",
+      "serviços"
+    ],
+    "eligible_stages": [
+      "pre-seed",
+      "seed"
+    ],
+    "technical_detail_level": "low",
+    "evaluation_type": "comite_publico",
+    "source_url": "https://www.sebrae.com.br",
+    "criteria": {
+      "innovation": 25,
+      "viability": 30,
+      "market": 25,
+      "team": 15,
+      "impact": 5
+    },
+    "scraped_at": "2025-12-04T19:34:32.676578"
+  },
+  {
+    "name": "SEBRAE Startup SP",
+    "agency": "SEBRAE",
+    "min_value": 10000,
+    "max_value": 50000,
+    "execution_months": 12,
+    "approval_rate_historical": 0.45,
+    "eligible_sectors": [
+      "software",
+      "saas",
+      "fintech"
+    ],
+    "eligible_stages": [
+      "pre-seed",
+      "seed"
+    ],
+    "technical_detail_level": "low",
+    "evaluation_type": "comite_publico",
+    "source_url": "https://www.sebrae.com.br",
+    "criteria": {
+      "innovation": 25,
+      "viability": 30,
+      "market": 25,
+      "team": 15,
+      "impact": 5
+    },
+    "scraped_at": "2025-12-04T19:34:32.677573"
+  },
+  {
+    "name": "Tecnova PB",
+    "agency": "FAPPB/FINEP",
+    "min_value": 150000,
+    "max_value": 500000,
+    "execution_months": 24,
+    "approval_rate_historical": 0.35,
+    "eligible_sectors": [
+      "hardware",
+      "biotech",
+      "agritech",
+      "energia"
+    ],
+    "eligible_stages": [
+      "seed",
+      "serie-a"
+    ],
+    "technical_detail_level": "high",
+    "evaluation_type": "comite_publico",
+    "source_url": "https://fappb.br",
+    "criteria": {
+      "innovation": 30,
+      "viability": 25,
+      "impact": 25,
+      "team": 15,
+      "market": 5
+    },
+    "scraped_at": "2025-12-04T19:34:32.677573"
+  },
+  {
+    "name": "Tecnova PR",
+    "agency": "FAPPR/FINEP",
+    "min_value": 150000,
+    "max_value": 500000,
+    "execution_months": 24,
+    "approval_rate_historical": 0.35,
+    "eligible_sectors": [
+      "hardware",
+      "biotech",
+      "agritech",
+      "energia"
+    ],
+    "eligible_stages": [
+      "seed",
+      "serie-a"
+    ],
+    "technical_detail_level": "high",
+    "evaluation_type": "comite_publico",
+    "source_url": "https://fappr.br",
+    "criteria": {
+      "innovation": 30,
+      "viability": 25,
+      "impact": 25,
+      "team": 15,
+      "market": 5
+    },
+    "scraped_at": "2025-12-04T19:34:32.677573"
+  },
+  {
+    "name": "Tecnova CE",
+    "agency": "FAPCE/FINEP",
+    "min_value": 150000,
+    "max_value": 500000,
+    "execution_months": 24,
+    "approval_rate_historical": 0.35,
+    "eligible_sectors": [
+      "hardware",
+      "biotech",
+      "agritech",
+      "energia"
+    ],
+    "eligible_stages": [
+      "seed",
+      "serie-a"
+    ],
+    "technical_detail_level": "high",
+    "evaluation_type": "comite_publico",
+    "source_url": "https://fapce.br",
+    "criteria": {
+      "innovation": 30,
+      "viability": 25,
+      "impact": 25,
+      "team": 15,
+      "market": 5
+    },
+    "scraped_at": "2025-12-04T19:34:32.677573"
+  },
+  {
+    "name": "Tecnova BA",
+    "agency": "FAPBA/FINEP",
+    "min_value": 150000,
+    "max_value": 500000,
+    "execution_months": 24,
+    "approval_rate_historical": 0.35,
+    "eligible_sectors": [
+      "hardware",
+      "biotech",
+      "agritech",
+      "energia"
+    ],
+    "eligible_stages": [
+      "seed",
+      "serie-a"
+    ],
+    "technical_detail_level": "high",
+    "evaluation_type": "comite_publico",
+    "source_url": "https://fapba.br",
+    "criteria": {
+      "innovation": 30,
+      "viability": 25,
+      "impact": 25,
+      "team": 15,
+      "market": 5
+    },
+    "scraped_at": "2025-12-04T19:34:32.678570"
+  },
+  {
+    "name": "Tecnova MG",
+    "agency": "FAPMG/FINEP",
+    "min_value": 150000,
+    "max_value": 500000,
+    "execution_months": 24,
+    "approval_rate_historical": 0.35,
+    "eligible_sectors": [
+      "hardware",
+      "biotech",
+      "agritech",
+      "energia"
+    ],
+    "eligible_stages": [
+      "seed",
+      "serie-a"
+    ],
+    "technical_detail_level": "high",
+    "evaluation_type": "comite_publico",
+    "source_url": "https://fapmg.br",
+    "criteria": {
+      "innovation": 30,
+      "viability": 25,
+      "impact": 25,
+      "team": 15,
+      "market": 5
+    },
+    "scraped_at": "2025-12-04T19:34:32.678570"
+  },
+  {
+    "name": "CNPq RHAE Inovação",
+    "agency": "CNPq",
+    "min_value": 30000,
+    "max_value": 150000,
+    "execution_months": 12,
+    "approval_rate_historical": 0.42,
+    "eligible_sectors": [
+      "software",
+      "ai-ml",
+      "biotech"
+    ],
+    "eligible_stages": [
+      "pre-seed",
+      "seed"
+    ],
+    "technical_detail_level": "medium",
+    "evaluation_type": "comite_publico",
+    "source_url": "https://www.cnpq.br",
+    "criteria": {
+      "innovation": 35,
+      "viability": 25,
+      "impact": 20,
+      "team": 15,
+      "market": 5
+    },
+    "scraped_at": "2025-12-04T19:34:32.678570"
+  }
+]

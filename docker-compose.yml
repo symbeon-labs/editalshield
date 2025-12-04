@@ -1,0 +1,119 @@
+# ============================================================
+# EditalShield - Docker Compose
+# Complete stack: App + PostgreSQL + pgAdmin
+# ============================================================
+
+services:
+  # ============================================================
+  # PostgreSQL Database
+  # ============================================================
+  db:
+    image: postgres:16-alpine
+    container_name: editalshield-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DB_NAME:-editalshield}
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-editalshield2024}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+      - ./data/synthetic_inserts.sql:/docker-entrypoint-initdb.d/02-data.sql:ro
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${DB_USER:-postgres} -d ${DB_NAME:-editalshield}" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - editalshield-network
+
+  # ============================================================
+  # pgAdmin (Database GUI)
+  # ============================================================
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: editalshield-pgadmin
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL:-admin@editalshield.com}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD:-admin123}
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    ports:
+      - "${PGADMIN_PORT:-5050}:80"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - editalshield-network
+
+  # ============================================================
+  # EditalShield Application
+  # ============================================================
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: editalshield-app
+    restart: unless-stopped
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: ${DB_NAME:-editalshield}
+      DB_USER: ${DB_USER:-postgres}
+      DB_PASSWORD: ${DB_PASSWORD:-editalshield2024}
+      PYTHONPATH: /app/src
+    volumes:
+      - ./data:/app/data
+      - ./models:/app/models
+      - ./logs:/app/logs
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - editalshield-network
+    command: [ "python", "-c", "print('EditalShield ready! Use docker-compose run app python models/train_bayesian_model.py')" ]
+
+  # ============================================================
+  # Model Training Worker
+  # ============================================================
+  trainer:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: editalshield-trainer
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: ${DB_NAME:-editalshield}
+      DB_USER: ${DB_USER:-postgres}
+      DB_PASSWORD: ${DB_PASSWORD:-editalshield2024}
+      PYTHONPATH: /app/src
+    volumes:
+      - ./data:/app/data
+      - ./models:/app/models
+      - ./logs:/app/logs
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - editalshield-network
+    profiles:
+      - training
+    command: [ "python", "models/train_bayesian_model.py" ]
+
+# ============================================================
+# Networks & Volumes
+# ============================================================
+networks:
+  editalshield-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+    name: editalshield-postgres-data
+  pgadmin_data:
+    name: editalshield-pgadmin-data
