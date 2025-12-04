@@ -174,6 +174,8 @@ O EditalShield se diferencia por utilizar modelos matemáticos avançados para g
 - **Redes Bayesianas**: Para cálculo probabilístico de risco.
 - **Lei de Metcalfe**: Fundamentando o crescimento exponencial do valor da rede.
 
+![Efeito de Rede - Lei de Metcalfe](docs/images/network_effect.png)
+
 👉 **[Leia o Modelo Matemático Completo](MATHEMATICAL_MODEL.md)**
 
 ---
@@ -188,6 +190,8 @@ Validação com caso real (startup varejo tech + Centelha BA):
 | **Trade secrets expostos** | 7 | 0 | ↓ 100% |
 | **Clareza técnica** | 7.2/10 | 8.5/10 | ↑ 18% |
 | **Economia em honorários** | — | R$ 12k (teto) | 💰 R$ 5.2k economizados |
+
+![Comparação Antes e Depois](docs/images/before_after.png)
 
 ---
 
