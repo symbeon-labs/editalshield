@@ -165,6 +165,19 @@ print(f"Trade secrets expostos: {result.summary.critical}")
 
 ---
 
+## 🧮 Fundamentação Científica
+
+O EditalShield se diferencia por utilizar modelos matemáticos avançados para garantir precisão e segurança:
+
+- **Entropia de Shannon**: Para medir densidade de informação e risco de PI.
+- **TF-IDF + Cosseno**: Para matching semântico de editais.
+- **Redes Bayesianas**: Para cálculo probabilístico de risco.
+- **Lei de Metcalfe**: Fundamentando o crescimento exponencial do valor da rede.
+
+👉 **[Leia o Modelo Matemático Completo](MATHEMATICAL_MODEL.md)**
+
+---
+
 ## 📊 Impacto Comprovado
 
 Validação com caso real (startup varejo tech + Centelha BA):

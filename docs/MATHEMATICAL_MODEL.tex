@@ -1,0 +1,115 @@
+% ============================================================
+% EditalShield - Mathematical Foundation (LaTeX)
+% Section for Technical Whitepaper
+% ============================================================
+
+\section{Mathematical Foundation}
+\label{sec:math}
+
+This section presents the formal mathematical framework underlying EditalShield's core algorithms for intellectual property risk assessment and grant matching.
+
+\subsection{Notation and Definitions}
+
+Let $\mathcal{E} = \{e_1, \ldots, e_M\}$ denote the set of available grants, and $\mathcal{T} = \{T_1, \ldots, T_N\}$ the set of technical memorials submitted by startups. Each memorial $T_j$ consists of paragraphs $T_j = \{p_{j1}, \ldots, p_{jn_j}\}$. We define $V$ as the vocabulary of relevant tokens across all documents.
+
+\subsection{Information Entropy for Paragraph Analysis}
+
+For a paragraph $p$, we compute the empirical word distribution:
+\begin{equation}
+    p(w) = \frac{f(w)}{\sum_{u \in V} f(u)}
+\end{equation}
+where $f(w)$ is the frequency of word $w$ in $p$.
+
+The Shannon entropy of $p$ is defined as:
+\begin{equation}
+    H(p) = - \sum_{w \in V_p} p(w) \log_2 p(w)
+\end{equation}
+where $V_p \subseteq V$ contains words appearing in $p$.
+
+We normalize entropy to the unit interval:
+\begin{equation}
+    H_{\text{norm}}(p) = \frac{H(p) - H_{\min}}{H_{\max} - H_{\min}} \in [0,1]
+\end{equation}
+
+\textbf{Interpretation:} High entropy indicates dense, information-rich text potentially revealing trade secrets; low entropy suggests generic, repetitive content.
+
+\subsection{Bayesian Risk Model}
+
+Define the binary random variable $X_p \in \{\text{safe}, \text{exposed}\}$ representing the IP exposure state of paragraph $p$. The evidence vector is:
+\begin{equation}
+    \mathbf{E}(p) = (E_1(p), E_2(p), E_3(p), E_4(p))
+\end{equation}
+where $E_1$ is normalized entropy, $E_2$ is the count of sensitive patterns, $E_3$ encodes grant type, and $E_4$ represents technology category.
+
+By Bayes' theorem:
+\begin{equation}
+    P(X_p = \text{exposed} \mid \mathbf{E}(p)) = \frac{P(\mathbf{E}(p) \mid X_p = \text{exposed}) \cdot P(X_p = \text{exposed})}{P(\mathbf{E}(p))}
+\end{equation}
+
+Under the Naive Bayes assumption of conditional independence:
+\begin{equation}
+    P(\mathbf{E}(p) \mid X_p = x) \approx \prod_{k=1}^{4} P(E_k(p) \mid X_p = x)
+\end{equation}
+
+The paragraph risk score is:
+\begin{equation}
+    R(p) = 100 \cdot P(X_p = \text{exposed} \mid \mathbf{E}(p))
+\end{equation}
+
+The aggregate memorial risk score uses weighted averaging:
+\begin{equation}
+    R(T_j) = \frac{\sum_{p \in T_j} \alpha_p \cdot R(p)}{\sum_{p \in T_j} \alpha_p}
+\end{equation}
+where $\alpha_p$ weights paragraph importance (e.g., higher for technical description sections).
+
+\subsection{Grant Matching via TF-IDF and Cosine Similarity}
+
+For semantic matching between a project $P$ and a grant $e$, we represent both as TF-IDF vectors in $\mathbb{R}^{|V|}$:
+\begin{equation}
+    \mathbf{v}_P = (\text{tfidf}(w_1, P), \ldots, \text{tfidf}(w_{|V|}, P))
+\end{equation}
+
+The cosine similarity yields the fit score:
+\begin{equation}
+    \text{Fit}(P, e) = 100 \cdot \frac{\mathbf{v}_P \cdot \mathbf{v}_e}{\|\mathbf{v}_P\| \cdot \|\mathbf{v}_e\|}
+\end{equation}
+
+\subsection{Network Effects and Metcalfe's Law}
+
+EditalShield's value proposition extends beyond individual utility through network effects. Following Metcalfe's Law, the value of the knowledge network grows proportionally to the square of participating startups:
+\begin{equation}
+    V_{\text{network}}(n) = k \cdot \frac{n(n-1)}{2}
+\end{equation}
+
+Model precision evolves with the memorial corpus size:
+\begin{equation}
+    \text{Prec}(m) = \min\left( \text{Prec}_0 + \gamma \cdot \frac{m(m-1)}{2}, \text{Prec}_{\max} \right)
+\end{equation}
+
+The Network Maturity Index (NMI) quantifies ecosystem health:
+\begin{equation}
+    \text{NMI}(n,m,p) = w_1 \cdot \frac{n^2}{N_0} + w_2 \cdot \frac{m^2}{M_0} + w_3 \cdot \frac{p^2}{P_0}
+\end{equation}
+where $n$ is active startups, $m$ is annotated memorials, $p$ is mapped grants, and $w_1 + w_2 + w_3 = 1$.
+
+\subsection{Summary}
+
+Table~\ref{tab:math_summary} summarizes the core mathematical components.
+
+\begin{table}[h]
+\centering
+\caption{Mathematical Framework Summary}
+\label{tab:math_summary}
+\begin{tabular}{lll}
+\hline
+\textbf{Component} & \textbf{Formula} & \textbf{Application} \\
+\hline
+Entropy & $H(p) = -\sum p(w) \log_2 p(w)$ & Information density \\
+Bayes & $P(X|E) = P(E|X)P(X)/P(E)$ & Risk scoring \\
+TF-IDF & $\text{sim} = \mathbf{A} \cdot \mathbf{B} / \|\mathbf{A}\|\|\mathbf{B}\|$ & Grant matching \\
+Metcalfe & $V(n) = kn(n-1)/2$ & Network value \\
+\hline
+\end{tabular}
+\end{table}
+
+% ============================================================
