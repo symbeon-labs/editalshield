@@ -7,7 +7,7 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
-from editalshield.modules import MemorialProtector, EditalMatcher
+from editalshield.modules import MemorialProtector, EditalMatcher, JuridicalAgent, KnowledgeConnector
 
 # Page Config
 st.set_page_config(
@@ -56,9 +56,11 @@ def load_modules():
     protector = MemorialProtector()
     matcher = EditalMatcher()
     matcher.load_editals_from_db()
-    return protector, matcher
+    juridical = JuridicalAgent()
+    connector = KnowledgeConnector()
+    return protector, matcher, juridical, connector
 
-protector, matcher = load_modules()
+protector, matcher, juridical, connector = load_modules()
 
 if mode == "🔍 Analyze & Protect":
     st.title("Memorial Analysis Protocol")
@@ -72,30 +74,45 @@ if mode == "🔍 Analyze & Protect":
         if st.button("INITIATE SCAN"):
             if text_input:
                 with st.spinner("Scanning for IP risks..."):
+                    # 1. Technical Analysis
                     analysis = protector.analyze_memorial(text_input)
                     protected, _ = protector.generate_protected_memorial(text_input)
                     
+                    # 2. Legal Analysis
+                    legal_opinion = juridical.analyze_legal_risk(analysis)
+                    
                     st.session_state['analysis'] = analysis
                     st.session_state['protected'] = protected
+                    st.session_state['legal_opinion'] = legal_opinion
+                    st.session_state['text_input'] = text_input
     
     with col2:
         st.subheader("Analysis Result")
         if 'analysis' in st.session_state:
             analysis = st.session_state['analysis']
+            legal = st.session_state['legal_opinion']
             
             # Metrics Row
             m1, m2, m3 = st.columns(3)
             m1.metric("Risk Score", f"{analysis.overall_risk_score}/100", 
                      delta="-High Risk" if analysis.overall_risk_score > 50 else "Safe",
                      delta_color="inverse")
-            m2.metric("Paragraphs", analysis.total_paragraphs)
-            m3.metric("Sensitive Patterns", sum(len(p.sensitive_patterns) for p in analysis.paragraphs))
+            m2.metric("Legal Status", legal.status)
+            m3.metric("Violations", len(legal.citations))
             
+            # Legal Alert Box
+            if legal.risk_level == "HIGH":
+                st.error(f"⚖️ **LEGAL ALERT:** {legal.recommendation}")
+            elif legal.risk_level == "MODERATE":
+                st.warning(f"⚖️ **LEGAL WARNING:** {legal.recommendation}")
+            else:
+                st.success(f"⚖️ **LEGAL OPINION:** {legal.recommendation}")
+
             # Radar Chart
             categories = ['Entropy', 'Zipf Deviation', 'Patterns', 'Technicality']
             values = [
                 analysis.paragraphs[0].entropy_normalized if analysis.paragraphs else 0,
-                0.8 if analysis.overall_risk_score > 50 else 0.2, # Mock for demo
+                0.8 if analysis.overall_risk_score > 50 else 0.2, 
                 min(1.0, analysis.overall_risk_score/100),
                 0.9
             ]
@@ -114,6 +131,22 @@ if mode == "🔍 Analyze & Protect":
                 font=dict(color='white')
             )
             st.plotly_chart(fig, use_container_width=True)
+            
+            # Novelty Check Button
+            st.markdown("---")
+            st.subheader("🌐 External Validation")
+            if st.button("CHECK PATENT CONFLICTS (USPTO/Google)"):
+                with st.spinner("Searching global patent databases..."):
+                    # Extract keywords from text (simple heuristic)
+                    keywords = [w for w in st.session_state['text_input'].split() if len(w) > 6][:3]
+                    results = connector.search_patents(keywords)
+                    
+                    if results:
+                        st.warning(f"⚠️ Found {len(results)} potential patent conflicts!")
+                        for r in results:
+                            st.markdown(f"- [{r.title}]({r.url}) ({r.source})")
+                    else:
+                        st.success("✅ No direct patent conflicts found in USPTO/Google Patents.")
             
             # Protected Text Tab
             with st.expander("🛡️ VIEW PROTECTED VERSION", expanded=True):
@@ -147,5 +180,5 @@ elif mode == "📊 Dashboard":
 
 # Footer
 st.sidebar.markdown("---")
-st.sidebar.caption("EditalShield v0.2.1")
+st.sidebar.caption("EditalShield v0.3.0")
 st.sidebar.caption("Powered by Shannon Entropy & Bayesian Networks")
