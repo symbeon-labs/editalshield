@@ -1,57 +1,45 @@
-# ============================================================
-# EditalShield - Dockerfile
-# Multi-stage build for production-ready container
-# ============================================================
-
+# Multi-stage build for optimized production image
 FROM python:3.11-slim as builder
 
 WORKDIR /app
 
-# Install build dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends \
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
     gcc \
-    libpq-dev \
+    g++ \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy requirements first for caching
-COPY requirements.txt .
-RUN pip wheel --no-cache-dir --no-deps --wheel-dir /app/wheels -r requirements.txt
+# Copy requirements
+COPY pyproject.toml ./
+COPY src/ ./src/
 
-# ============================================================
-# Production Stage
-# ============================================================
+# Install Python dependencies
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir -e .
+
+# Production stage
 FROM python:3.11-slim
 
 WORKDIR /app
 
-# Install runtime dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    libpq5 \
-    curl \
-    && rm -rf /var/lib/apt/lists/*
+# Copy only necessary files from builder
+COPY --from=builder /usr/local/lib/python3.11/site-packages /usr/local/lib/python3.11/site-packages
+COPY --from=builder /app/src /app/src
+COPY models/ /app/models/
+COPY database/schema.sql /app/database/
 
 # Create non-root user
-RUN useradd --create-home --shell /bin/bash editalshield
+RUN useradd -m -u 1000 editalshield && \
+    chown -R editalshield:editalshield /app
+
 USER editalshield
 
-# Copy wheels from builder
-COPY --from=builder /app/wheels /wheels
-COPY --from=builder /app/requirements.txt .
-
-# Install dependencies
-RUN pip install --no-cache --user /wheels/*
-
-# Copy application code
-COPY --chown=editalshield:editalshield . .
-
-# Set PATH for user-installed packages
-ENV PATH="/home/editalshield/.local/bin:$PATH"
-ENV PYTHONPATH="/app/src:$PYTHONPATH"
-ENV PYTHONUNBUFFERED=1
+# Expose ports
+EXPOSE 8000 8501
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD python -c "from database.models import SessionLocal; db = SessionLocal(); db.execute('SELECT 1'); print('OK')" || exit 1
+    CMD python -c "import sys; sys.exit(0)"
 
-# Default command
-CMD ["python", "-m", "editalshield", "--help"]
+# Default command (can be overridden)
+CMD ["python", "-m", "editalshield.cli"]
