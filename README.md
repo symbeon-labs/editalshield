@@ -13,7 +13,7 @@
 </p>
 
 <p align="center">
-  <a href="#"><img src="https://img.shields.io/badge/version-0.2.0-blue.svg" alt="Version"></a>
+  <a href="#"><img src="https://img.shields.io/badge/version-0.2.1-blue.svg" alt="Version"></a>
   <a href="#"><img src="https://img.shields.io/badge/python-3.10+-green.svg" alt="Python"></a>
   <a href="#"><img src="https://img.shields.io/badge/license-MIT-orange.svg" alt="License"></a>
   <a href="#"><img src="https://img.shields.io/badge/status-production-success.svg" alt="Status"></a>
@@ -90,6 +90,18 @@ open http://localhost:5050
 ---
 
 ## ✨ Features
+
+### ⚖️ Agente Jurídico Autônomo (LPI 9.279/96)
+
+<p align="center">
+  <img src="docs/images/juridical_agent.png" alt="Juridical Agent" width="100%">
+</p>
+
+O EditalShield não apenas analisa dados, ele **interpreta leis**. O módulo `JuridicalAgent` traduz métricas técnicas em pareceres jurídicos fundamentados na **Lei da Propriedade Industrial (LPI)**.
+
+*   **Perda de Novidade (Art. 12):** Detecta se a descrição técnica revela o "estado da técnica", impedindo patenteamento.
+*   **Segredo Industrial (Art. 195, XI):** Identifica vazamento de *know-how* confidencial que configura crime de concorrência desleal se exposto.
+*   **Proteção de Software (Lei 9.609/98):** Diferencia código-fonte (Direito Autoral) de algoritmos (Ideia não protegida).
 
 ### 🎯 Edital Matcher (Novo!)
 
@@ -309,7 +321,9 @@ Matching semântico de editais.
 editalshield/
 ├── src/editalshield/
 │   ├── modules/
-│   │   └── memorial_protector.py   # 🛡️ Core module
+│   │   ├── memorial_protector.py   # 🛡️ Core module
+│   │   ├── edital_matcher.py       # 🎯 Matcher module
+│   │   └── juridical_agent.py      # ⚖️ Legal Agent
 │   └── cli.py                       # 🖥️ CLI interface
 ├── database/
 │   ├── schema.sql                   # 📊 PostgreSQL schema
@@ -327,6 +341,7 @@ editalshield/
 │   └── ci.yml                       # 🔄 CI/CD pipeline
 ├── Dockerfile                       # 🐳 Container
 ├── docker-compose.yml               # 🐳 Stack
+├── app.py                           # 🌐 Web Dashboard
 └── Makefile                         # ⚙️ Automation
 ```
 
@@ -379,9 +394,10 @@ make clean         # Limpar arquivos gerados
 
 - [x] v0.1.0 - Estrutura base e documentação
 - [x] v0.2.0 - Memorial Protector + CLI + Docker
-- [ ] v0.3.0 - Web Dashboard (Streamlit)
-- [ ] v0.4.0 - API REST
-- [ ] v0.5.0 - Integração com editais em tempo real
+- [x] v0.3.0 - Web Dashboard (Streamlit)
+- [x] v0.4.0 - Juridical Agent (LPI)
+- [ ] v0.5.0 - API REST
+- [ ] v0.6.0 - Integração com editais em tempo real
 
 ---
 
