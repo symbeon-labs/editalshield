@@ -35,6 +35,34 @@ Add to your MCP configuration:
 
 ## Available Tools
 
+### 🎯 match_project
+
+Find the best matching innovation grants (editals) for a project.
+
+**Input:**
+```json
+{
+  "description": "Startup developing AI for agritech...",
+  "sector": "agritech"
+}
+```
+
+**Output:**
+```json
+{
+  "status": "success",
+  "matches_found": 5,
+  "top_matches": [
+    {
+      "name": "Centelha SP",
+      "score": 85.5,
+      "value_range": [50000, 100000],
+      "reason": "High compatibility with agritech sector"
+    }
+  ]
+}
+```
+
 ### 🔍 analyze_memorial
 
 Analyze a technical memorial for IP exposure risk.

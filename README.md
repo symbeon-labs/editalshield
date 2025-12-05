@@ -87,6 +87,26 @@ open http://localhost:5050
 
 ## ✨ Features
 
+### 🎯 Edital Matcher (Novo!)
+
+Encontre as melhores oportunidades para sua startup usando algoritmos de similaridade semântica (TF-IDF + Cosine Similarity).
+
+```python
+from editalshield.modules import EditalMatcher
+
+matcher = EditalMatcher()
+matcher.load_editals_from_db()
+
+# Encontrar oportunidades
+matches = matcher.match_project(
+    "Startup de IA para monitoramento de pragas em soja",
+    sector="agritech"
+)
+
+for m in matches:
+    print(f"{m.name}: {m.match_score}% compatível")
+```
+
 ### 🔍 Memorial Protector (Módulo Principal)
 
 Análise de risco de exposição de PI usando:
@@ -157,6 +177,9 @@ EDITALSHIELD - MEMORIAL ANALYSIS REPORT
 # 📊 Analisar memorial
 editalshield analyze memorial.txt
 editalshield analyze memorial.txt --format json -o report.json
+
+# 🎯 Encontrar oportunidades
+editalshield match "Startup de IA para saúde" --sector healthtech
 
 # 🛡️ Proteger memorial
 editalshield protect memorial.txt

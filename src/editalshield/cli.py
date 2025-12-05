@@ -263,6 +263,59 @@ def generate(memorials, editals, output):
 
 
 # ============================================================================
+# MATCH Command
+# ============================================================================
+
+@cli.command()
+@click.argument('description', type=str)
+@click.option('--sector', '-s', type=str, help='Filter by sector (e.g. agritech)')
+@click.option('--top', '-n', type=int, default=5, help='Number of results')
+def match(description, sector, top):
+    """
+    🎯 Find matching editals for a project
+    
+    Example: editalshield match "Startup de IA para saúde" --sector healthtech
+    """
+    console.print(Panel.fit(
+        "[bold blue]EditalShield[/bold blue] - Edital Matcher",
+        subtitle="🎯 Finding best opportunities..."
+    ))
+    
+    try:
+        from editalshield.modules.edital_matcher import EditalMatcher
+        
+        matcher = EditalMatcher()
+        matcher.load_editals_from_db()
+        
+        matches = matcher.match_project(description, sector=sector, top_k=top)
+        
+        if not matches:
+            console.print("[yellow]No matches found. Try broadening your search.[/yellow]")
+            return
+            
+        table = Table(title=f"Top {len(matches)} Matches")
+        table.add_column("Score", style="green")
+        table.add_column("Edital", style="cyan")
+        table.add_column("Agency", style="blue")
+        table.add_column("Value Range", style="white")
+        table.add_column("Reason", style="yellow")
+        
+        for m in matches:
+            table.add_row(
+                f"{m.match_score:.1f}%",
+                m.name,
+                m.agency,
+                f"R$ {m.min_value/1000:.0f}k - {m.max_value/1000:.0f}k",
+                m.relevance_reason
+            )
+            
+        console.print(table)
+        
+    except Exception as e:
+        console.print(f"[red]Error: {e}[/red]")
+
+
+# ============================================================================
 # SCRAPE Command
 # ============================================================================
 

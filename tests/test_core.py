@@ -192,6 +192,58 @@ class TestBayesianTrainer:
         assert len(df) > 0
 
 
+class TestEditalMatcher:
+    """Tests for Edital Matcher"""
+    
+    @pytest.fixture
+    def matcher(self):
+        from editalshield.modules.edital_matcher import EditalMatcher
+        
+        # Mock data
+        editals = [
+            {
+                'name': 'Edital Agritech Inovação',
+                'agency': 'FINEP',
+                'eligible_sectors': ['agritech', 'biotech', 'agricultura'],
+                'eligible_stages': ['seed'],
+                'min_value': 100000,
+                'max_value': 500000,
+                'criteria': {'inovação no campo': 10}
+            },
+            {
+                'name': 'Edital Healthtech Saúde',
+                'agency': 'FAPESP',
+                'eligible_sectors': ['healthtech', 'biotech', 'saúde'],
+                'eligible_stages': ['serie-a'],
+                'min_value': 200000,
+                'max_value': 1000000
+            }
+        ]
+        return EditalMatcher(editals_data=editals)
+    
+    def test_match_project(self, matcher):
+        """Test project matching logic"""
+        description = "Startup de tecnologia para agricultura e monitoramento de safra no campo"
+        matches = matcher.match_project(description)
+        
+        assert len(matches) > 0
+        assert matches[0].name == 'Edital Agritech Inovação'
+        assert float(matches[0].match_score) >= 0
+    
+    def test_sector_filter(self, matcher):
+        """Test hard filtering by sector"""
+        description = "Startup de biotecnologia"
+        
+        # Should match both (both have biotech)
+        matches_bio = matcher.match_project(description, sector='biotech')
+        assert len(matches_bio) == 2
+        
+        # Should match only healthtech
+        matches_health = matcher.match_project(description, sector='healthtech')
+        assert len(matches_health) == 1
+        assert matches_health[0].name == 'Edital Healthtech Saúde'
+
+
 # ============================================================================
 # Integration Tests
 # ============================================================================

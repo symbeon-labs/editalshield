@@ -26,13 +26,16 @@ except ImportError:
     sys.exit(1)
 
 from editalshield.modules.memorial_protector import MemorialProtector, MemorialAnalysis
+from editalshield.modules.edital_matcher import EditalMatcher
 
 
 # Initialize MCP Server
 server = Server("editalshield")
 
-# Initialize Memorial Protector
+# Initialize modules
 protector = MemorialProtector()
+matcher = EditalMatcher()
+matcher.load_editals_from_db()
 
 
 # ============================================================================
@@ -43,6 +46,27 @@ protector = MemorialProtector()
 async def list_tools() -> List[Tool]:
     """List available EditalShield tools"""
     return [
+        Tool(
+            name="match_project",
+            description="""Find the best matching innovation grants (editals) for a project.
+            
+Uses TF-IDF and Cosine Similarity to compare project description against database.
+Returns a ranked list of opportunities with compatibility scores and reasons.""",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "description": {
+                        "type": "string",
+                        "description": "Description of the startup or project"
+                    },
+                    "sector": {
+                        "type": "string",
+                        "description": "Optional sector filter (e.g. agritech, healthtech)"
+                    }
+                },
+                "required": ["description"]
+            }
+        ),
         Tool(
             name="analyze_memorial",
             description="""Analyze a technical memorial for intellectual property exposure risk.
@@ -229,7 +253,28 @@ async def call_tool(name: str, arguments: Dict[str, Any]) -> List[TextContent]:
     """Execute an EditalShield tool"""
     
     try:
-        if name == "analyze_memorial":
+        if name == "match_project":
+            description = arguments.get("description", "")
+            sector = arguments.get("sector")
+            
+            matches = matcher.match_project(description, sector=sector)
+            
+            result = {
+                "status": "success",
+                "matches_found": len(matches),
+                "top_matches": [
+                    {
+                        "name": m.name,
+                        "agency": m.agency,
+                        "score": m.match_score,
+                        "value_range": [m.min_value, m.max_value],
+                        "reason": m.relevance_reason
+                    }
+                    for m in matches
+                ]
+            }
+
+        elif name == "analyze_memorial":
             text = arguments.get("text", "")
             analysis = protector.analyze_memorial(text)
             
