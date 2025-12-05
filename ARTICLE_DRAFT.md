@@ -19,13 +19,18 @@ O objetivo não é esconder a inovação, mas **descrever a "caixa preta" pelos 
 Para automatizar essa proteção, não basta usar uma LLM genérica (que muitas vezes alucina ou protege demais). Precisamos de precisão matemática. Usei dois conceitos fundamentais:
 
 ### 1. Entropia de Shannon (Densidade de Informação)
-Claude Shannon definiu a entropia como a medida de "surpresa" ou informação em uma mensagem.
+Claude Shannon, em seu paper seminal *"A Mathematical Theory of Communication"* (1948), definiu a entropia como a medida de incerteza em um sistema. Mais tarde, em *"Communication Theory of Secrecy Systems"* (1949), ele estabeleceu que a segurança perfeita depende da imprevisibilidade da chave.
+
+No EditalShield, aplicamos a **Máxima de Shannon**: *"O inimigo conhece o sistema"*. Não tentamos esconder que existe uma tecnologia (o sistema), mas sim os parâmetros específicos (a chave).
 - **Baixa Entropia:** "O sol nasce a leste." (Previsível, pouco segredo).
 - **Alta Entropia:** "W=0.7, K=1.5, Threshold=95%." (Imprevisível, denso, provável segredo).
 
-No EditalShield, calculamos a entropia normalizada de cada parágrafo. Se a densidade informacional passa de um limiar, é um sinal de alerta.
+Calculamos a entropia normalizada de cada parágrafo. Se a densidade informacional passa de um limiar, é um sinal de alerta matemático, não apenas linguístico.
 
-### 2. Classificação Bayesiana (Risco de Exposição)
+### 2. Lei de Zipf (Anomalia Linguística)
+Além de Shannon, utilizamos o princípio da **Lei de Zipf**, que descreve a distribuição de frequência de palavras em linguagem natural. Segredos industriais tendem a violar a distribuição padrão localmente, concentrando termos raros e específicos (nomes de variáveis, constantes) em clusters densos. O EditalShield detecta essas anomalias estatísticas como "zonas de calor" de propriedade intelectual.
+
+### 3. Classificação Bayesiana (Risco de Exposição)
 Usamos um classificador Naive Bayes Gaussiano treinado em milhares de parágrafos sintéticos (gerados via LLM) para calcular a probabilidade de um texto conter exposição de PI ($P(Exposure|Features)$).
 
 As features incluem:
