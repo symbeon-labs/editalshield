@@ -73,26 +73,82 @@ class KnowledgeConnector:
 
     def search_patents(self, keywords: List[str]) -> List[ExternalResource]:
         """
-        Simulates searching INPI/Google Patents database.
-        (Mocked because INPI does not have a public open API).
+        Performs REAL patent search using:
+        1. USPTO API (PatentsView) - Official US Patents
+        2. Google Patents (Scraping) - Global Patents
         """
-        # Simulation logic based on keywords
         results = []
-        base_url = "https://busca.inpi.gov.br/pePI/servlet/LoginController?action=login"
         
-        tech_terms = [k for k in keywords if len(k) > 4]
-        
-        if tech_terms:
-            # Simulate finding a patent if keywords are very technical
-            term = tech_terms[0]
-            results.append(ExternalResource(
-                source="INPI (Patentes)",
-                title=f"Sistema e Método para {term.capitalize()} Automatizado",
-                url=base_url,
-                date=(datetime.now() - timedelta(days=random.randint(100, 1000))).strftime("%Y-%m-%d"),
-                relevance=0.85,
-                summary=f"Patente de invenção descrevendo método de {term} utilizando redes neurais..."
-            ))
+        # 1. USPTO Search (PatentsView API)
+        try:
+            # Construct query for title or abstract
+            query_parts = []
+            for k in keywords:
+                if len(k) > 3: # Filter small words
+                    query_parts.append(f'{{"_text_any": {{"patent_title": "{k}"}}}}')
+                    query_parts.append(f'{{"_text_any": {{"patent_abstract": "{k}"}}}}')
+            
+            if query_parts:
+                query = f'{{"_or": [{",".join(query_parts)}]}}'
+                url = "https://api.patentsview.org/patents/query"
+                params = {
+                    "q": query,
+                    "f": '["patent_title", "patent_date", "patent_abstract", "patent_number"]',
+                    "o": '{"per_page": 3}'
+                }
+                
+                resp = requests.get(url, params=params, timeout=5)
+                if resp.status_code == 200:
+                    data = resp.json()
+                    for pat in data.get('patents', [])[:3]:
+                        results.append(ExternalResource(
+                            source="USPTO (US Patents)",
+                            title=pat.get('patent_title', 'Unknown'),
+                            url=f"https://patents.google.com/patent/US{pat.get('patent_number')}",
+                            date=pat.get('patent_date', ''),
+                            relevance=0.95,
+                            summary=pat.get('patent_abstract', '')[:200] + "..."
+                        ))
+        except Exception as e:
+            print(f"USPTO Search Error: {e}")
+
+        # 2. Google Patents Scraping (Fallback/Complementary)
+        try:
+            from bs4 import BeautifulSoup
+            
+            # Search query construction
+            q = "+".join(keywords)
+            url = f"https://patents.google.com/?q={q}&oq={q}"
+            headers = {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+            }
+            
+            resp = requests.get(url, headers=headers, timeout=5)
+            if resp.status_code == 200:
+                soup = BeautifulSoup(resp.content, 'html.parser')
+                # Google Patents structure (may change, so we use generic selectors)
+                articles = soup.find_all('article', limit=3)
+                
+                for art in articles:
+                    title_el = art.find('h3') or art.find('span', {'id': 'htmlContent'})
+                    link_el = art.find('a', href=True)
+                    
+                    if link_el and link_el['href'].startswith('/patent/'):
+                        title = link_el.get_text().strip()
+                        link = f"https://patents.google.com{link_el['href']}"
+                        
+                        # Avoid duplicates from USPTO
+                        if not any(r.url == link for r in results):
+                            results.append(ExternalResource(
+                                source="Google Patents (Global)",
+                                title=title,
+                                url=link,
+                                date="Unknown", # Hard to parse from list view reliably
+                                relevance=0.8,
+                                summary="Patent found via global search."
+                            ))
+        except Exception as e:
+            print(f"Google Patents Scraping Error: {e}")
             
         return results
 
