@@ -2,6 +2,10 @@
   <img src="docs/images/banner.png" alt="EditalShield Banner" width="100%">
 </p>
 
+<p align="center">
+  <img src="docs/images/demo.gif" alt="EditalShield Demo" width="600">
+</p>
+
 <h1 align="center">🛡️ EditalShield</h1>
 
 <p align="center">
@@ -252,6 +256,12 @@ O EditalShield utiliza modelos matemáticos validados academicamente:
 H(X) = -Σ p(xᵢ) × log₂(p(xᵢ))
 ```
 Mede densidade informacional do texto.
+
+### Lei de Zipf
+```
+f(r) ∝ 1/r
+```
+Detecta anomalias linguísticas. Textos com segredos industriais violam a distribuição natural de frequência de palavras, concentrando termos técnicos raros.
 
 ### Redes Bayesianas
 ```
