@@ -148,6 +148,69 @@ class MemorialProtector:
         
         return round(entropy, 4), round(entropy_normalized, 4)
     
+    def calculate_zipf_score(self, text: str) -> float:
+        """
+        Calculate Zipfian Deviation Score.
+        Measures how 'rare' the vocabulary is compared to standard language.
+        Higher score = more technical/specific/rare content.
+        """
+        words = re.findall(r'\b[a-zA-ZÀ-ÿ]{3,}\b', text.lower())
+        if not words:
+            return 0.0
+            
+        # Heuristic: Common Portuguese words (Top ~50)
+        common_words = {
+            'que', 'para', 'com', 'não', 'uma', 'dos', 'por', 'mais', 'das', 'como',
+            'mas', 'foi', 'ao', 'ele', 'das', 'tem', 'seu', 'sua', 'ou', 'ser',
+            'quando', 'muito', 'nos', 'já', 'está', 'eu', 'também', 'só', 'pelo',
+            'pela', 'até', 'isso', 'ela', 'entre', 'depois', 'sem', 'mesmo', 'aos',
+            'seus', 'quem', 'nas', 'me', 'esse', 'eles', 'estão', 'você', 'tinha',
+            'foram', 'essa', 'num', 'nem', 'suas', 'meu', 'às', 'minha', 'têm',
+            'numa', 'pelos', 'elas', 'qual', 'nós', 'lhe', 'deles', 'essas', 'esses',
+            'pelas', 'este', 'dele', 'tu', 'te', 'vocês', 'vos', 'lhes', 'meus', 'minhas',
+            'teu', 'tua', 'teus', 'tuas', 'nosso', 'nossa', 'nossos', 'nossas',
+            'dela', 'delas', 'esta', 'estes', 'estas', 'aquele', 'aquela', 'aqueles',
+            'aquelas', 'isto', 'aquilo', 'estou', 'está', 'estamos', 'estão', 'estive',
+            'esteve', 'estivemos', 'estiveram', 'estava', 'estávamos', 'estavam',
+            'estivera', 'estivéramos', 'esteja', 'estejamos', 'estejam', 'estivesse',
+            'estivéssemos', 'estivessem', 'estiver', 'estivermos', 'estiverem', 'hei',
+            'há', 'havemos', 'hão', 'houve', 'houvemos', 'houveram', 'houvera',
+            'houvéramos', 'haja', 'hajamos', 'hajam', 'houvesse', 'houvéssemos',
+            'houvessem', 'houver', 'houvermos', 'houverem', 'houverei', 'houverá',
+            'houveremos', 'houverão', 'houveria', 'houveríamos', 'houveriam', 'sou',
+            'somos', 'são', 'era', 'éramos', 'eram', 'fui', 'foi', 'fomos', 'foram',
+            'fora', 'fôramos', 'seja', 'sejamos', 'sejam', 'fosse', 'fôssemos',
+            'fossem', 'for', 'formos', 'forem', 'serei', 'será', 'seremos', 'serão',
+            'seria', 'seríamos', 'seriam', 'tenho', 'tem', 'temos', 'têm', 'tinha',
+            'tínhamos', 'tinham', 'tive', 'teve', 'tivemos', 'tiveram', 'tivera',
+            'tivéramos', 'tenha', 'tenhamos', 'tenham', 'tivesse', 'tivéssemos',
+            'tivessem', 'tiver', 'tivermos', 'tiverem', 'terei', 'terá', 'teremos',
+            'terão', 'teria', 'teríamos', 'teriam'
+        }
+        
+        rare_word_count = 0
+        total_length_weight = 0
+        
+        for word in words:
+            if word not in common_words:
+                # Rare word found
+                weight = 1.0
+                
+                # Bonus for length (technical terms tend to be longer)
+                if len(word) > 7:
+                    weight += 0.5
+                if len(word) > 10:
+                    weight += 0.5
+                    
+                rare_word_count += 1
+                total_length_weight += weight
+        
+        # Zipf Score: Density of rare/complex words
+        # Normalized roughly to 0-1 range for typical text
+        score = (total_length_weight / len(words)) if words else 0
+        
+        return min(score, 1.0)
+
     def detect_sensitive_patterns(self, text: str) -> Dict[str, List[str]]:
         """Detect sensitive patterns in text"""
         found = {}
@@ -178,11 +241,11 @@ class MemorialProtector:
             return 'general'
     
     def calculate_risk_score(self, entropy_norm: float, num_patterns: int, 
-                            section_type: str) -> int:
+                            section_type: str, zipf_score: float = 0.0) -> int:
         """Calculate risk score (0-100) using Bayesian model or heuristics"""
         
         if self.model is not None:
-            # Use trained model
+            # Use trained model (add zipf as feature if retrained, or use as booster)
             features = [[
                 entropy_norm,
                 min(num_patterns, 5),
@@ -197,18 +260,24 @@ class MemorialProtector:
                         features[0][i] = (features[0][i] - self.scaler_stats['means'][i]) / self.scaler_stats['stds'][i]
             
             prob = self.model.predict_proba(features)[0][1]
-            return int(prob * 100)
+            base_score = int(prob * 100)
+            
+            # Boost with Zipf score (since model wasn't trained with it yet)
+            zipf_boost = int(zipf_score * 20)
+            return min(base_score + zipf_boost, 100)
         else:
             # Fallback heuristic
             base_score = entropy_norm * 30
             pattern_score = min(num_patterns * 15, 50)
             section_bonus = 20 if section_type == 'technical' else 0
-            return min(int(base_score + pattern_score + section_bonus), 100)
+            zipf_bonus = zipf_score * 30
+            return min(int(base_score + pattern_score + section_bonus + zipf_bonus), 100)
     
     def analyze_paragraph(self, text: str, index: int) -> ParagraphAnalysis:
         """Analyze a single paragraph for IP exposure risk"""
         
         entropy, entropy_norm = self.calculate_entropy(text)
+        zipf_score = self.calculate_zipf_score(text)
         patterns = self.detect_sensitive_patterns(text)
         section_type = self.classify_section(text)
         
@@ -220,7 +289,7 @@ class MemorialProtector:
                 suggestions.append(self.PROTECTION_SUGGESTIONS.get(category, ''))
         
         num_patterns = len(all_patterns)
-        risk_score = self.calculate_risk_score(entropy_norm, num_patterns, section_type)
+        risk_score = self.calculate_risk_score(entropy_norm, num_patterns, section_type, zipf_score)
         has_exposure = risk_score >= 50 or num_patterns >= 2
         
         return ParagraphAnalysis(

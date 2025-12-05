@@ -35,6 +35,20 @@ class TestMemorialProtector:
         
         assert entropy >= 0
         assert 0 <= entropy_norm <= 1
+        
+    def test_zipf_score(self, protector):
+        """Test Zipfian deviation score"""
+        # Common text (low score - mostly stop words)
+        common = "Eu sou você e nós somos eles para sempre com isso."
+        score_common = protector.calculate_zipf_score(common)
+        
+        # Technical text (high score)
+        technical = "Eigenvectors ortogonais com decomposição SVD e hiperparâmetros."
+        score_tech = protector.calculate_zipf_score(technical)
+        
+        assert score_tech > score_common
+        assert 0 <= score_common <= 1
+        assert 0 <= score_tech <= 1
     
     def test_pattern_detection_algorithm(self, protector):
         """Test algorithm pattern detection"""
@@ -232,7 +246,7 @@ class TestEditalMatcher:
     
     def test_sector_filter(self, matcher):
         """Test hard filtering by sector"""
-        description = "Startup de biotecnologia"
+        description = "Startup de biotech"
         
         # Should match both (both have biotech)
         matches_bio = matcher.match_project(description, sector='biotech')
