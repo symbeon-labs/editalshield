@@ -28,6 +28,7 @@ except ImportError:
 from editalshield.modules.memorial_protector import MemorialProtector, MemorialAnalysis
 from editalshield.modules.edital_matcher import EditalMatcher
 from editalshield.modules.juridical_agent import JuridicalAgent
+from editalshield.modules.knowledge_connectors import KnowledgeConnector
 
 
 # Initialize MCP Server
@@ -38,6 +39,7 @@ protector = MemorialProtector()
 matcher = EditalMatcher()
 matcher.load_editals_from_db()
 juridical = JuridicalAgent()
+connector = KnowledgeConnector()
 
 
 # ============================================================================
@@ -68,6 +70,22 @@ like Trade Secret exposure or Loss of Novelty.""",
                     }
                 },
                 "required": ["risk_score"]
+            }
+        ),
+        Tool(
+            name="check_novelty",
+            description="""Check if the project idea has conflicts with existing Patents (INPI) or Scientific Papers (ArXiv).
+            
+Useful to validate the 'Novelty' requirement for patents and grants.""",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "description": {
+                        "type": "string",
+                        "description": "Project description or technical abstract"
+                    }
+                },
+                "required": ["description"]
             }
         ),
         Tool(
@@ -302,6 +320,10 @@ async def call_tool(name: str, arguments: Dict[str, Any]) -> List[TextContent]:
                 ]
             }
 
+        elif name == "check_novelty":
+            description = arguments.get("description", "")
+            result = connector.check_novelty(description)
+            
         elif name == "match_project":
             description = arguments.get("description", "")
             sector = arguments.get("sector")

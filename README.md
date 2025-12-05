@@ -103,6 +103,14 @@ O EditalShield não apenas analisa dados, ele **interpreta leis**. O módulo `Ju
 *   **Segredo Industrial (Art. 195, XI):** Identifica vazamento de *know-how* confidencial que configura crime de concorrência desleal se exposto.
 *   **Proteção de Software (Lei 9.609/98):** Diferencia código-fonte (Direito Autoral) de algoritmos (Ideia não protegida).
 
+### 🌐 Conectores de Conhecimento (v0.3.0)
+
+O agente não está isolado. Ele acessa bases externas para validar suas hipóteses:
+
+*   **INPI / Google Patents:** Verifica se a ideia já foi patenteada (Risco de Novidade).
+*   **ArXiv (Science):** Busca papers científicos para validar o "Estado da Arte".
+*   **Portal de Dados Abertos:** Busca editais ativos em tempo real (simulado).
+
 ### 🎯 Edital Matcher (Novo!)
 
 Encontre as melhores oportunidades para sua startup usando algoritmos de similaridade semântica (TF-IDF + Cosine Similarity).

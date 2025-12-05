@@ -18,6 +18,10 @@
             "description": "Get legal analysis of IP risks based on Brazilian Law"
         },
         {
+            "name": "check_novelty",
+            "description": "Check for patent/scientific conflicts (INPI/ArXiv)"
+        },
+        {
             "name": "match_project",
             "description": "Find best matching grants for a project description"
         },
@@ -71,6 +75,7 @@
     "requirements": [
         "mcp>=1.0.0",
         "numpy>=1.24",
-        "scikit-learn>=1.3"
+        "scikit-learn>=1.3",
+        "requests>=2.31.0"
     ]
 }
