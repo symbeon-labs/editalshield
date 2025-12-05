@@ -27,6 +27,7 @@ except ImportError:
 
 from editalshield.modules.memorial_protector import MemorialProtector, MemorialAnalysis
 from editalshield.modules.edital_matcher import EditalMatcher
+from editalshield.modules.juridical_agent import JuridicalAgent
 
 
 # Initialize MCP Server
@@ -36,6 +37,7 @@ server = Server("editalshield")
 protector = MemorialProtector()
 matcher = EditalMatcher()
 matcher.load_editals_from_db()
+juridical = JuridicalAgent()
 
 
 # ============================================================================
@@ -46,6 +48,28 @@ matcher.load_editals_from_db()
 async def list_tools() -> List[Tool]:
     """List available EditalShield tools"""
     return [
+        Tool(
+            name="get_legal_opinion",
+            description="""Get a legal opinion on IP risks based on Brazilian Law (LPI 9.279/96).
+            
+Analyzes technical risk score and patterns to identify potential legal violations 
+like Trade Secret exposure or Loss of Novelty.""",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "risk_score": {
+                        "type": "integer",
+                        "description": "Overall risk score from analyze_memorial (0-100)"
+                    },
+                    "patterns": {
+                        "type": "array",
+                        "items": {"type": "string"},
+                        "description": "List of sensitive patterns detected"
+                    }
+                },
+                "required": ["risk_score"]
+            }
+        ),
         Tool(
             name="match_project",
             description="""Find the best matching innovation grants (editals) for a project.
@@ -253,7 +277,32 @@ async def call_tool(name: str, arguments: Dict[str, Any]) -> List[TextContent]:
     """Execute an EditalShield tool"""
     
     try:
-        if name == "match_project":
+        if name == "get_legal_opinion":
+            risk_score = arguments.get("risk_score", 0)
+            patterns = arguments.get("patterns", [])
+            
+            opinion = juridical.analyze_legal_risk({
+                'overall_risk_score': risk_score,
+                'sensitive_patterns': patterns
+            })
+            
+            result = {
+                "status": "success",
+                "legal_status": opinion.status,
+                "risk_level": opinion.risk_level,
+                "recommendation": opinion.recommendation,
+                "citations": [
+                    {
+                        "law": c.law,
+                        "article": c.article,
+                        "description": c.description,
+                        "implication": c.implication
+                    }
+                    for c in opinion.citations
+                ]
+            }
+
+        elif name == "match_project":
             description = arguments.get("description", "")
             sector = arguments.get("sector")
             

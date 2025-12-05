@@ -1,6 +1,6 @@
 {
     "name": "editalshield",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "description": "MCP server for EditalShield - IP protection in innovation grants",
     "author": "NEO_SH1W4",
     "repository": "https://github.com/SH1W4/editalshield",
@@ -13,6 +13,10 @@
         "cwd": "."
     },
     "tools": [
+        {
+            "name": "get_legal_opinion",
+            "description": "Get legal analysis of IP risks based on Brazilian Law"
+        },
         {
             "name": "match_project",
             "description": "Find best matching grants for a project description"

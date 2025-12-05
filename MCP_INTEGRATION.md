@@ -35,6 +35,35 @@ Add to your MCP configuration:
 
 ## Available Tools
 
+### ⚖️ get_legal_opinion
+
+Get a legal opinion on IP risks based on Brazilian Law (LPI 9.279/96).
+
+**Input:**
+```json
+{
+  "risk_score": 85,
+  "patterns": ["algorithm", "parameters"]
+}
+```
+
+**Output:**
+```json
+{
+  "status": "success",
+  "legal_status": "NON-COMPLIANT",
+  "risk_level": "HIGH",
+  "recommendation": "ALERTA CRÍTICO: O texto contém alta densidade técnica...",
+  "citations": [
+    {
+      "law": "LPI (Lei 9.279/96)",
+      "article": "Art. 195, XI",
+      "description": "Crime de concorrência desleal..."
+    }
+  ]
+}
+```
+
 ### 🎯 match_project
 
 Find the best matching innovation grants (editals) for a project.
