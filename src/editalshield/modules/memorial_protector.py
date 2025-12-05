@@ -91,6 +91,16 @@ class MemorialProtector:
         ]
     }
     
+    # Pattern weights for risk calculation (0.0 to 1.0)
+    PATTERN_WEIGHTS = {
+        'algorithm': 1.0,  # Critical IP
+        'parameters': 0.8, # Detailed implementation
+        'dataset': 0.6,    # Data asset
+        'contacts': 1.0,   # PII / Privacy
+        'metrics': 0.7,    # Business intelligence
+        'clients': 0.9,    # Commercial secrets
+    }
+    
     # Generic replacement suggestions
     PROTECTION_SUGGESTIONS = {
         'algorithm': 'Substituir por: "algoritmo proprietário desenvolvido internamente"',
@@ -240,7 +250,7 @@ class MemorialProtector:
         else:
             return 'general'
     
-    def calculate_risk_score(self, entropy_norm: float, num_patterns: int, 
+    def calculate_risk_score(self, entropy_norm: float, pattern_score: float, 
                             section_type: str, zipf_score: float = 0.0) -> int:
         """Calculate risk score (0-100) using Bayesian model or heuristics"""
         
@@ -248,7 +258,7 @@ class MemorialProtector:
             # Use trained model (add zipf as feature if retrained, or use as booster)
             features = [[
                 entropy_norm,
-                min(num_patterns, 5),
+                min(pattern_score, 5), # Model was trained with count, so we cap/scale
                 0,  # edital_type (public)
                 1 if section_type == 'technical' else 0
             ]]
@@ -268,10 +278,11 @@ class MemorialProtector:
         else:
             # Fallback heuristic
             base_score = entropy_norm * 30
-            pattern_score = min(num_patterns * 15, 50)
+            # Use weighted pattern score
+            pat_score_val = min(pattern_score * 25, 60) # Increased multiplier for weighted score
             section_bonus = 20 if section_type == 'technical' else 0
             zipf_bonus = zipf_score * 30
-            return min(int(base_score + pattern_score + section_bonus + zipf_bonus), 100)
+            return min(int(base_score + pat_score_val + section_bonus + zipf_bonus), 100)
     
     def analyze_paragraph(self, text: str, index: int) -> ParagraphAnalysis:
         """Analyze a single paragraph for IP exposure risk"""
@@ -288,9 +299,14 @@ class MemorialProtector:
             if matches:
                 suggestions.append(self.PROTECTION_SUGGESTIONS.get(category, ''))
         
-        num_patterns = len(all_patterns)
-        risk_score = self.calculate_risk_score(entropy_norm, num_patterns, section_type, zipf_score)
-        has_exposure = risk_score >= 50 or num_patterns >= 2
+        # Calculate weighted pattern score
+        pattern_score = 0.0
+        for category, matches in patterns.items():
+            weight = self.PATTERN_WEIGHTS.get(category, 0.5)
+            pattern_score += len(matches) * weight
+            
+        risk_score = self.calculate_risk_score(entropy_norm, pattern_score, section_type, zipf_score)
+        has_exposure = risk_score >= 50 or pattern_score >= 1.5
         
         return ParagraphAnalysis(
             index=index,
@@ -348,11 +364,15 @@ class MemorialProtector:
             paragraphs=analyses
         )
     
-    def protect_text(self, text: str, patterns: Dict[str, List[str]]) -> str:
-        """Apply protection by replacing sensitive patterns"""
+    def protect_text(self, text: str, patterns: Dict[str, List[str]], level: str = 'MEDIUM') -> str:
+        """
+        Apply protection by replacing sensitive patterns.
+        Levels: LOW, MEDIUM, HIGH
+        """
         protected = text
         
-        replacements = {
+        # Replacements for MEDIUM level (Standard)
+        replacements_medium = {
             'algorithm': '[ALGORITMO PROPRIETÁRIO]',
             'parameters': '[PARÂMETROS OTIMIZADOS]',
             'dataset': '[BASE DE DADOS REPRESENTATIVA]',
@@ -362,13 +382,33 @@ class MemorialProtector:
         }
         
         for category, matches in patterns.items():
-            replacement = replacements.get(category, '[INFORMAÇÃO PROTEGIDA]')
             for match in matches:
-                protected = protected.replace(match, replacement)
+                if level == 'LOW':
+                    # Low protection: Remove values but keep context
+                    if category == 'parameters':
+                        # Regex to find the value part and replace it
+                        # Simple heuristic: replace digits
+                        protected_match = re.sub(r'[\d.]+', '[VALOR]', match)
+                        protected = protected.replace(match, protected_match)
+                    elif category == 'metrics':
+                        protected_match = re.sub(r'[\d.,]+', '[VALOR]', match)
+                        protected = protected.replace(match, protected_match)
+                    else:
+                        # Fallback to medium for others
+                        replacement = replacements_medium.get(category, '[PROTEGIDO]')
+                        protected = protected.replace(match, replacement)
+                        
+                elif level == 'HIGH':
+                    # High protection: Redact aggressively
+                    protected = protected.replace(match, '[REMOVIDO - ALTO RISCO]')
+                    
+                else: # MEDIUM (Default)
+                    replacement = replacements_medium.get(category, '[INFORMAÇÃO PROTEGIDA]')
+                    protected = protected.replace(match, replacement)
         
         return protected
     
-    def generate_protected_memorial(self, text: str) -> Tuple[str, MemorialAnalysis]:
+    def generate_protected_memorial(self, text: str, protection_level: str = 'MEDIUM') -> Tuple[str, MemorialAnalysis]:
         """Generate protected version of memorial"""
         
         analysis = self.analyze_memorial(text)
@@ -376,9 +416,13 @@ class MemorialProtector:
         protected_text = text
         for para in analysis.paragraphs:
             if para.has_exposure:
-                patterns = self.detect_sensitive_patterns(para.text)
-                protected_para = self.protect_text(para.text, patterns)
-                protected_text = protected_text.replace(para.text, protected_para)
+                # For HIGH protection, if risk is very high, redact whole paragraph
+                if protection_level == 'HIGH' and para.risk_score > 80:
+                    protected_text = protected_text.replace(para.text, f"[SEÇÃO CRÍTICA REMOVIDA - RISCO {para.risk_score}]")
+                else:
+                    patterns = self.detect_sensitive_patterns(para.text)
+                    protected_para = self.protect_text(para.text, patterns, level=protection_level)
+                    protected_text = protected_text.replace(para.text, protected_para)
         
         analysis.protected_text = protected_text
         return protected_text, analysis

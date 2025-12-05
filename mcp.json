@@ -31,7 +31,7 @@
         },
         {
             "name": "protect_memorial",
-            "description": "Protect a memorial by replacing sensitive IP content"
+            "description": "Protect a memorial by replacing sensitive IP content (Supports LOW/MEDIUM/HIGH levels)"
         },
         {
             "name": "analyze_paragraph",

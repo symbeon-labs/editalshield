@@ -69,6 +69,15 @@ if mode == "🔍 Analyze & Protect":
     
     with col1:
         st.subheader("Input Stream")
+        
+        # Protection Level Control
+        protection_level = st.select_slider(
+            "🛡️ Protection Level", 
+            options=["LOW", "MEDIUM", "HIGH"], 
+            value="MEDIUM",
+            help="LOW: Removes values only. MEDIUM: Generic placeholders. HIGH: Redacts entire sensitive blocks."
+        )
+        
         text_input = st.text_area("Paste your technical memorial here...", height=400)
         
         if st.button("INITIATE SCAN"):
@@ -76,7 +85,7 @@ if mode == "🔍 Analyze & Protect":
                 with st.spinner("Scanning for IP risks..."):
                     # 1. Technical Analysis
                     analysis = protector.analyze_memorial(text_input)
-                    protected, _ = protector.generate_protected_memorial(text_input)
+                    protected, _ = protector.generate_protected_memorial(text_input, protection_level=protection_level)
                     
                     # 2. Legal Analysis
                     legal_opinion = juridical.analyze_legal_risk(analysis)

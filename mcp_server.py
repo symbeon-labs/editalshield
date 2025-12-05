@@ -150,6 +150,12 @@ Returns the protected text and analysis.""",
                     "text": {
                         "type": "string",
                         "description": "The memorial text to protect"
+                    },
+                    "protection_level": {
+                        "type": "string",
+                        "enum": ["LOW", "MEDIUM", "HIGH"],
+                        "default": "MEDIUM",
+                        "description": "Level of protection: LOW (remove values), MEDIUM (generic placeholders), HIGH (redact)"
                     }
                 },
                 "required": ["text"]
@@ -372,7 +378,8 @@ async def call_tool(name: str, arguments: Dict[str, Any]) -> List[TextContent]:
             
         elif name == "protect_memorial":
             text = arguments.get("text", "")
-            protected_text, analysis = protector.generate_protected_memorial(text)
+            level = arguments.get("protection_level", "MEDIUM")
+            protected_text, analysis = protector.generate_protected_memorial(text, protection_level=level)
             
             result = {
                 "status": "success",
