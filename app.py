@@ -108,14 +108,25 @@ if mode == "🔍 Analyze & Protect":
             else:
                 st.success(f"⚖️ **LEGAL OPINION:** {legal.recommendation}")
 
-            # Radar Chart
-            categories = ['Entropy', 'Zipf Deviation', 'Patterns', 'Technicality']
+            # Radar Chart (Pentagram Shape - 5 Axes)
+            categories = ['Entropy', 'Zipf', 'Patterns', 'Technicality', 'Legal Risk']
+            
+            # Calculate Legal Risk Value
+            legal_val = 0.2
+            if legal.risk_level == "MODERATE": legal_val = 0.6
+            if legal.risk_level == "HIGH": legal_val = 1.0
+
             values = [
                 analysis.paragraphs[0].entropy_normalized if analysis.paragraphs else 0,
                 0.8 if analysis.overall_risk_score > 50 else 0.2, 
                 min(1.0, analysis.overall_risk_score/100),
-                0.9
+                0.9,
+                legal_val
             ]
+            
+            # Close the loop for the chart
+            categories = [*categories, categories[0]]
+            values = [*values, values[0]]
             
             fig = go.Figure(data=go.Scatterpolar(
                 r=values,
