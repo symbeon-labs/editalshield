@@ -178,6 +178,14 @@ EDITALSHIELD - MEMORIAL ANALYSIS REPORT
 ## 🖥️ CLI Commands
 
 ```bash
+# 🌐 Web Dashboard (Streamlit)
+
+Para uma experiência visual interativa:
+
+```bash
+streamlit run app.py
+```
+
 # 📊 Analisar memorial
 editalshield analyze memorial.txt
 editalshield analyze memorial.txt --format json -o report.json
