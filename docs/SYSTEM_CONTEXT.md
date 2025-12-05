@@ -478,7 +478,7 @@ for match in matches[:3]:
 
 ## 📞 Support & Resources
 
-- **GitHub:** https://github.com/SH1W4/editalshield
+- **GitHub:** https://github.com/symbeon-labs/editalshield
 - **Documentation:** `docs/` directory
 - **Issues:** GitHub Issues
 - **License:** MIT (Core) / Proprietary (Enterprise)

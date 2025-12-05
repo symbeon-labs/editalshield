@@ -2,7 +2,7 @@
 
 **Versão:** 1.0.0
 **Autor:** João Manoel Oliveira (Symbeon Lab)
-**Repositório:** [github.com/SH1W4/editalshield](https://github.com/SH1W4/editalshield)
+**Repositório:** [github.com/symbeon-labs/editalshield](https://github.com/symbeon-labs/editalshield)
 
 ---
 
@@ -76,7 +76,7 @@ editalshield/
 ### 3.1 Instalação
 ```bash
 # 1. Clone o repositório
-git clone https://github.com/SH1W4/editalshield.git
+git clone https://github.com/symbeon-labs/editalshield.git
 cd editalshield
 
 # 2. Crie o ambiente virtual
@@ -133,7 +133,7 @@ editalshield protect --input "meu_projeto.md" --nivel "alto"
 ---
 
 ## 5. Recursos Adicionais
-- **Repositório:** [GitHub](https://github.com/SH1W4/editalshield)
+- **Repositório:** [GitHub](https://github.com/symbeon-labs/editalshield)
 - **Issues:** Use para reportar bugs ou pedir features.
 - **Licença:** MIT (Livre para uso e modificação).
 

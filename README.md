@@ -52,7 +52,7 @@ O EditalShield resolve esse dilema usando **Inteligência Artificial** para:
 
 ```bash
 # Clone o repositório
-git clone https://github.com/SH1W4/editalshield.git
+git clone https://github.com/symbeon-labs/editalshield.git
 cd editalshield
 
 # Crie ambiente virtual

@@ -98,7 +98,7 @@ O projeto é 100% open source. Acreditamos que a proteção da propriedade intel
 2. Integração com mais fontes de editais (FAPs estaduais).
 3. API pública.
 
-🔗 **Repositório:** [github.com/SH1W4/editalshield](https://github.com/SH1W4/editalshield)
+🔗 **Repositório:** [github.com/symbeon-labs/editalshield](https://github.com/symbeon-labs/editalshield)
 
 ---
 

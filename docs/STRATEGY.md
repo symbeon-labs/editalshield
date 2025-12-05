@@ -377,7 +377,7 @@ editalshield-enterprise/
 
 ### Repositório 1: editalshield-core (Público)
 ```
-github.com/SH1W4/editalshield-core
+github.com/symbeon-labs/editalshield-core
 
 MIT License - Open-source
 ```

@@ -146,7 +146,7 @@ docker-compose logs db  # Ver logs
 
 **Exemplo badge:**
 ```markdown
-[![Tests](https://github.com/SH1W4/editalshield/workflows/Tests/badge.svg)](...)
+[![Tests](https://github.com/symbeon-labs/editalshield/workflows/Tests/badge.svg)](...)
 ```
 
 ---

@@ -365,7 +365,7 @@ O sistema de documentação `DocSync` foi totalmente integrado ao núcleo do Edi
 O projeto foi auditado, limpo e publicado.
 - **Auditoria de Dados:** Varredura completa para remover dados pessoais e sensíveis.
 - **Git Setup:** Inicialização do repositório, configuração de `.gitignore` e primeiro push.
-- **Repositório:** [https://github.com/SH1W4/editalshield](https://github.com/SH1W4/editalshield)
+- **Repositório:** [https://github.com/symbeon-labs/editalshield](https://github.com/symbeon-labs/editalshield)
 
 ### 3. 🎨 Identidade Visual e Assets
 Elevamos o nível profissional do projeto com assets visuais de alta qualidade.
