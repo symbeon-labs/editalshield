@@ -62,36 +62,36 @@ LOG_FORMAT = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 
 def get_config(key: str, default: Any = None) -> Any:
     """Obtém valor de configuração.
-    
+
     Args:
         key: Chave de configuração (pode usar notação de ponto, ex: 'nda_defaults.multa_min')
         default: Valor padrão se chave não existir
-        
+
     Returns:
         Valor da configuração ou default
     """
     keys = key.split(".")
     value = DEFAULT_CONFIG
-    
+
     for k in keys:
         if isinstance(value, dict) and k in value:
             value = value[k]
         else:
             return default
-    
+
     return value
 
 
 def validate_paths() -> bool:
     """Valida se diretórios essenciais existem.
-    
+
     Returns:
         True se todos os diretórios existem, False caso contrário
     """
     required_dirs = [DATA_DIR, TEMPLATES_DIR]
-    
+
     for directory in required_dirs:
         if not directory.exists():
             return False
-    
+
     return True

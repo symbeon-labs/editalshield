@@ -8,8 +8,13 @@ from .juridical_agent import JuridicalAgent, LegalOpinion
 from .knowledge_connectors import KnowledgeConnector, ExternalResource
 
 __all__ = [
-    'MemorialProtector', 'MemorialAnalysis', 'ParagraphAnalysis',
-    'EditalMatcher', 'MatchResult',
-    'JuridicalAgent', 'LegalOpinion',
-    'KnowledgeConnector', 'ExternalResource'
+    "MemorialProtector",
+    "MemorialAnalysis",
+    "ParagraphAnalysis",
+    "EditalMatcher",
+    "MatchResult",
+    "JuridicalAgent",
+    "LegalOpinion",
+    "KnowledgeConnector",
+    "ExternalResource",
 ]
