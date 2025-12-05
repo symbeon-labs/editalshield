@@ -2,7 +2,7 @@
     "name": "editalshield",
     "version": "0.2.1",
     "description": "MCP server for EditalShield - IP protection in innovation grants",
-    "author": "NEO_SH1W4",
+    "author": "Symbeon Labs",
     "repository": "https://github.com/SH1W4/editalshield",
     "license": "MIT",
     "server": {

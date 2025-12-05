@@ -435,9 +435,9 @@ MIT License - veja [LICENSE](LICENSE) para detalhes.
 
 ---
 
-## 👨‍💻 Autor
+## 👨‍💻 Desenvolvido por
 
-**NEO_SH1W4** - [@SH1W4](https://github.com/SH1W4)
+**Symbeon Labs** - *Advanced AI Solutions*
 
 ---
 
@@ -450,5 +450,5 @@ MIT License - veja [LICENSE](LICENSE) para detalhes.
 </p>
 
 <p align="center">
-  <sub>Made with ❤️ for Brazilian startups</sub>
+  <sub>Powered by Symbeon Labs</sub>
 </p>

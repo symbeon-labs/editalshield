@@ -4,9 +4,9 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "editalshield"
-version = "0.2.0"
+version = "0.3.0"
 description = "Framework sistemático para proteção de PI em editais de inovação brasileiros"
-authors = [{name = "John Doe", email = "contact@example.com"}]
+authors = [{name = "Symbeon Labs", email = "contact@symbeon.com"}]
 readme = "README.md"
 requires-python = ">=3.9"
 license = {text = "MIT"}

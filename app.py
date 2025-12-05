@@ -181,4 +181,5 @@ elif mode == "📊 Dashboard":
 # Footer
 st.sidebar.markdown("---")
 st.sidebar.caption("EditalShield v0.3.0")
-st.sidebar.caption("Powered by Shannon Entropy & Bayesian Networks")
+st.sidebar.caption("Developed by **Symbeon Labs**")
+
