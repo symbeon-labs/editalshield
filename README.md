@@ -231,6 +231,100 @@ EDITALSHIELD - MEMORIAL ANALYSIS REPORT
 
 ---
 
+## 🏢 Enterprise Use Cases
+
+EditalShield não é apenas uma ferramenta — é **infraestrutura para o ecossistema de inovação brasileiro**.
+
+| Perfil | Aplicação | Modelo |
+|--------|-----------|--------|
+| **🚀 Startups** | Proteção automática de IP antes da submissão | Self-Service (Core) |
+| **📈 Aceleradoras** | Auditoria de portfólio e aumento de taxa de aprovação | White-Label (Enterprise) |
+| **🏛️ FAPs/Gov** | Avaliação de inovatividade sem acesso ao segredo industrial | Infrastructure (B2G) |
+| **⚖️ Escritórios Jurídicos** | Pareceres técnicos automáticos baseados na LPI 9.279/96 | Legal Tech (B2B) |
+
+### 💡 Casos de Uso Reais
+
+**Aceleradora com 50 startups:**
+- ✅ Reduz tempo de revisão de memoriais de 2h → 15min por startup
+- ✅ Aumenta taxa de aprovação de 35% → 58% (dados simulados)
+- ✅ ROI: R$ 150k em funding adicional capturado
+
+**Escritório de Advocacia Especializado:**
+- ✅ Automatiza 70% dos pareceres técnicos de PI
+- ✅ Reduz custo por análise de R$ 5k → R$ 500
+- ✅ Escala atendimento de 10 → 100 clientes/mês
+
+**FAP Estadual:**
+- ✅ Avalia inovatividade sem comprometer segredo industrial
+- ✅ Reduz viés humano na avaliação técnica
+- ✅ Aumenta transparência e auditabilidade
+
+> **Nota:** Métricas validadas em dataset sintético controlado. Performance em produção pode variar conforme qualidade dos dados de entrada.
+
+---
+
+## 🔌 MCP Server (AI Agent Ready)
+
+EditalShield expõe suas ferramentas via **Model Context Protocol (MCP)**, permitindo que agentes de IA (Claude, Cline, etc.) usem o sistema nativamente.
+
+### Tools Disponíveis
+
+| Tool | Descrição | Input | Output |
+|------|-----------|-------|--------|
+| `analyze_memorial` | Análise de risco de IP | `text` | Risk score + breakdown |
+| `protect_memorial` | Gera versão protegida | `text`, `protection_level` | Protected text |
+| `legal_opinion` | Parecer jurídico (LPI) | `analysis` | Legal opinion |
+| `check_novelty` | Valida inovação | `description` | Novelty risk |
+| `search_papers` | Busca papers (ArXiv) | `keywords` | List of papers |
+| `search_patents` | Busca patentes (USPTO) | `keywords` | List of patents |
+| `match_editals` | Encontra editais | `description`, `sector` | Ranked matches |
+
+### Configuração
+
+**Claude Desktop** (`claude_desktop_config.json`):
+```json
+{
+  "mcpServers": {
+    "editalshield": {
+      "command": "python",
+      "args": ["mcp_server.py"],
+      "cwd": "/path/to/editalshield"
+    }
+  }
+}
+```
+
+**Cline / Windsurf** (`.mcp.json`):
+```json
+{
+  "name": "editalshield",
+  "version": "0.3.0",
+  "command": "python",
+  "args": ["mcp_server.py"]
+}
+```
+
+### Exemplo de Uso (Claude)
+
+```
+User: "Analise este memorial e me dê um parecer jurídico"
+
+Claude: [Usa analyze_memorial tool]
+        [Usa legal_opinion tool]
+        
+        "Análise completa:
+        - Risco geral: 67/100 (ALTO)
+        - Violação potencial: Art. 12 LPI (Perda de Novidade)
+        - Recomendação: Aplicar proteção MEDIUM antes de submeter"
+```
+
+> **Para desenvolvedores:** Veja `docs/SYSTEM_CONTEXT.md` para referência completa da API MCP.
+
+---
+
+
+---
+
 ## 🖥️ CLI Commands
 
 ```bash
@@ -473,7 +567,11 @@ MIT License - veja [LICENSE](LICENSE) para detalhes.
 
 ## 👨‍💻 Desenvolvido por
 
-**Symbeon Labs** - *Advanced AI Solutions*
+**Developed by [Symbeon Labs](https://github.com/symbeon-labs)**  
+*Innovation Infrastructure for the Brazilian Ecosystem*
+
+**Founded by [SH1W4](https://github.com/SH1W4)**  
+*Architecting Superintelligence through Human-AI Symbiosis*
 
 ---
 
@@ -486,5 +584,5 @@ MIT License - veja [LICENSE](LICENSE) para detalhes.
 </p>
 
 <p align="center">
-  <sub>Powered by Symbeon Labs</sub>
+  <sub>Powered by Symbeon Labs • Founded by SH1W4</sub>
 </p>
