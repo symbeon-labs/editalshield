@@ -405,6 +405,27 @@ Email: `admin@editalshield.com` | Senha: `admin123`
 
 ---
 
+---
+
+## 🌌 The Symbeon Innovation Ecosystem
+
+**EditalShield** is the "Opportunity Engine" of the Symbeon Labs "Innovation Trinity".
+
+<div align="center">
+
+| 🛡️ 1. Opportunity | ⚖️ 2. Validation | 🔬 3. Protection |
+| :---: | :---: | :---: |
+| **[EditalShield](https://github.com/symbeon-labs/editalshield)** | **[Themis Engine](https://github.com/symbeon-labs/juridical-innovation-agent)** | **[Patent Engine](https://github.com/symbeon-labs/patent_intelligence_engine)** |
+| *Fundraising Intelligence* | *Juridical Co-Founder* | *Asset Factory* |
+| **Discovers funding & fits project to public calls (You are here).** | Pivots business ideas into patentable assets. | Searches priors & drafts valid patents. |
+
+</div>
+
+### 🔄 Integrated Workflow
+> *"EditalShield finds the money, Themis validates the tech, PIE protects the asset."*
+
+---
+
 ## 🧮 Fundamentação Científica
 
 O EditalShield utiliza modelos matemáticos validados academicamente:
