@@ -91,16 +91,58 @@ class MemorialProtector:
             r"\bclientes?\s*(?:incluem|como|são)?\s*:?\s*[A-Z][a-zA-Z]+(?:\s*,\s*[A-Z][a-zA-Z]+)*\b",
             r"\b(?:CinemaChain|RetailCorp|FinTechBR|TechVision)\b",
         ],
+        "lpi_patent": [
+            r"\bnovidade.?(?:absoluta)?\b",
+            r"\batividade.?(?:inventiva)?\b",
+            r"\baplicação.?(?:industrial)?\b",
+            r"\bestado.?(?:da.?)?técnica\b",
+            r"\breivindicação.?independente\b",
+        ],
+        "software_law": [
+            r"\bcódigo.?(?:fonte|objeto)\b",
+            r"\bregistro.?(?:di?o.?)?software\b",
+            r"\bobra.?(?:literária|técnica)\b",
+            r"\bengenharia.?(?:reversa|interoperabilidade)\b",
+        ],
+        "tax_incentive": [
+            r"\blei.?(?:di?o.?)?bem\b",
+            r"\bsubvenção.?(?:econômica)?\b",
+            r"\bPD&I\b",
+            r"\bFINEP|FAPESP|CNPq\b",
+        ],
+        "ai_governance": [
+            r"\brisco.?(?:alto|inaceitável|crítico)\b",
+            r"\bexplicabilidade\b",
+            r"\bviés.?(?:algorítmico)?\b",
+            r"\btransparência.?(?:algorítmica)?\b",
+        ],
+        "lgpd_privacy": [
+            r"\bdados?.?(?:pessoais|sensíveis)\b",
+            r"\btitular.?(?:di?os.?)?dados?\b",
+            r"\banonimização\b",
+            r"\bfinalidade.?(?:do.?)?tratamento\b",
+        ],
+        "innovation_law": [
+            r"\blei.?(?:da.?)?inovação\b",
+            r"\bICT.?pública\b",
+            r"\bencomenda.?(?:tecnológica)?\b",
+        ],
     }
 
     # Pattern weights for risk calculation (0.0 to 1.0)
     PATTERN_WEIGHTS = {
-        "algorithm": 1.0,  # Critical IP
-        "parameters": 0.8,  # Detailed implementation
-        "dataset": 0.6,  # Data asset
-        "contacts": 1.0,  # PII / Privacy
-        "metrics": 0.7,  # Business intelligence
-        "clients": 0.9,  # Commercial secrets
+        "algorithm": 1.0,
+        "parameters": 0.8,
+        "dataset": 0.6,
+        "contacts": 1.0,
+        "metrics": 0.7,
+        "clients": 0.9,
+        "lpi_patent": 0.4,
+        "software_law": 0.5,
+        "tax_incentive": 0.3,
+        "ai_governance": 0.8,
+        "lgpd_privacy": 1.0,
+        "innovation_law": 0.4,
     }
 
     # Generic replacement suggestions
@@ -111,6 +153,12 @@ class MemorialProtector:
         "contacts": "Remover informações de contato pessoal",
         "metrics": 'Usar ranges: "ROI entre 2x e 5x" ao invés de valores exatos',
         "clients": 'Substituir por: "clientes em setores estratégicos"',
+        "lpi_patent": "Verificar Art. 10 da LPI para evitar negação por abstração",
+        "software_law": 'Assegurar registro no INPI para proteção de "código-objeto"',
+        "tax_incentive": "Mapear este componente para créditos da Lei do Bem",
+        "ai_governance": "Realizar Avaliação de Risco Algorítmico (PL 2338)",
+        "lgpd_privacy": "Implementar Privacy-by-Design e Anonimização",
+        "innovation_law": "Explorar parcerias com ICTs sob a Lei 10.973/04",
     }
 
     def __init__(self, model_path: str = None):

@@ -52,7 +52,7 @@ O EditalShield resolve esse dilema usando **Inteligência Artificial** para:
 
 ```bash
 # Clone o repositório
-git clone https://github.com/symbeon-labs/editalshield.git
+git clone https://github.com/th3m1s-core/editalshield.git
 cd editalshield
 
 # Crie ambiente virtual
@@ -415,14 +415,14 @@ Email: `admin@editalshield.com` | Senha: `admin123`
 
 | 🛡️ 1. Opportunity | ⚖️ 2. Validation | 🔬 3. Protection |
 | :---: | :---: | :---: |
-| **[EditalShield](https://github.com/symbeon-labs/editalshield)** | **[Themis Engine](https://github.com/symbeon-labs/juridical-innovation-agent)** | **[Patent Engine](https://github.com/symbeon-labs/patent_intelligence_engine)** |
-| *Fundraising Intelligence* | *Juridical Co-Founder* | *Asset Factory* |
-| **Discovers funding & fits project to public calls (You are here).** | Pivots business ideas into patentable assets. | Searches priors & drafts valid patents. |
+| **[EditalShield](https://github.com/th3m1s-core/editalshield)** | **[Themis Engine](https://github.com/th3m1s-core/juridical-innovation-agent)** | **[Academic Paper Gen](https://github.com/th3m1s-core/academic-paper-generator)** |
+| *Fundraising Intelligence* | *Juridical Co-Founder* | *Scientific Authority* |
+| **Discovers funding & fits project to public calls (You are here).** | Pivots business ideas into patentable assets. | Generates high-impact academic papers. |
 
 </div>
 
 ### 🔄 Integrated Workflow
-> *"EditalShield finds the money, Themis validates the tech, PIE protects the asset."*
+> *"EditalShield finds the money, Themis validates the tech, Academic Agent establishes authority."*
 
 ---
 
@@ -588,7 +588,7 @@ MIT License - veja [LICENSE](LICENSE) para detalhes.
 
 ## 👨‍💻 Desenvolvido por
 
-**Developed by [Symbeon Labs](https://github.com/symbeon-labs)**  
+**Developed by [Symbeon Labs](https://github.com/th3m1s-core)**  
 *Innovation Infrastructure for the Brazilian Ecosystem*
 
 **Founded by [SH1W4](https://github.com/SH1W4)**  
